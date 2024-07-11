@@ -1,3 +1,42 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
+/* body {
+    background: #404040;
+} */
+
+.signin-container {
+    background-color: #1a1a1a; 
+    padding: 20px;
+    border-radius: 8px; 
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); 
+    width: 400px; 
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.custom-form-control {
+    background-color: transparent;
+    border: none; 
+    border-bottom: 1px solid #fff; 
+    border-radius: 0; 
+    color: #fff; 
+    padding: 10px 0; 
+}
+
+.custom-form-control:focus {
+    outline: none; 
+    box-shadow: none; 
+}
+
+.btn-primary {
+    background-color: grey; 
+    border-color: grey; 
+}
+
+.btn-primary:hover {
+    background-color: grey; 
+    border-color: black; 
+}
+
