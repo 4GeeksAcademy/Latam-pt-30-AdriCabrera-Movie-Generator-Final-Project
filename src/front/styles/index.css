@@ -2,7 +2,7 @@
     background: #404040;
 } */
 
-.signin-container {
+.signin-container, .login-container {
     background-color: #1a1a1a; 
     padding: 20px;
     border-radius: 8px; 
@@ -28,11 +28,6 @@
 .custom-form-control:focus {
     outline: none; 
     box-shadow: none; 
-}
-
-.btn-primary {
-    background-color: grey; 
-    border-color: grey; 
 }
 
 .btn-primary:hover {

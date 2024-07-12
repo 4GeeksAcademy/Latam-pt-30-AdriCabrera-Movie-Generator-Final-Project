@@ -14,6 +14,9 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Movies } from "./pages/Movies.jsx";
+import { Mylist } from "./pages/Mylist.jsx";
+import { Recomended } from "./pages/Recomended.jsx";
 
 //create your first component
 const Layout = () => {
@@ -33,6 +36,9 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Signin />} path="/signin" />
                         <Route element={<Login />} path="/login" />
+                        <Route element={<Movies/>} path="/movies"/>
+                        <Route element={<Mylist/>} path="/mylist"/>
+                        <Route element={<Recomended/>} path="/recomended"/>
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

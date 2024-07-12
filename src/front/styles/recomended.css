@@ -1,0 +1,14 @@
+
+.parallax-recomended{
+    /* The image used */
+    background-image: url("https://preview.redd.it/so-about-3-days-ago-i-posted-a-wallpaper-of-all-horror-v0-lg9m4qag3xq81.jpg?auto=webp&s=d613211ae862ce7f12faa44296f3d5d4818d4993");
+  
+    /* Set a specific height */
+    min-height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

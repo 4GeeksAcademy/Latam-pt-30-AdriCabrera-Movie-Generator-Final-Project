@@ -5,27 +5,32 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div className="container">
-				<a className="navbar-brand" href="#">MovieMate</a>
+				<Link to={"/"} className="navbar-brand" href="#">MovieMate</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
 				</button>
 				<div className="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul className="navbar-nav me-auto mb-2 mb-lg-0">
 					<li className="nav-item">
-					<a className="nav-link active" aria-current="page" href="#">Inicio</a>
+					<Link to={"/"} className="nav-link active" aria-current="page" href="#">Inicio</Link>
 					</li>
 					<li className="nav-item">
-					<a className="nav-link" href="#">Peliculas</a>
+					<Link to={"/movies"} className="nav-link" href="#">Peliculas</Link>
 					</li>
 					<li className="nav-item">
-					<a className="nav-link" href="#">Mi lista</a>
+					<Link to={"/mylist"} className="nav-link" href="#">Mi lista</Link>
 					</li>
 					<li className="nav-item">
-					<a className="nav-link" href="#">Recomendaciones</a>
+					<Link to={"/recomended"} className="nav-link" href="#">Recomendaciones</Link>
 					</li>
 				</ul>
 				<form className="d-flex" role="search">
-					<button className="btn btn-outline-success" type="submit">Inicio de sesion</button>
+					<Link to={"/login"}>
+						<button className="btn btn-outline-success mx-3" type="submit">Inicio de sesion</button>
+					</Link>
+					<Link to={"/signin"}>
+						<button className="btn btn-outline-success" type="submit">Crea tu cuenta</button>
+					</Link>
 				</form>
 				</div>
 			</div>
