@@ -1,7 +1,20 @@
-/*
-    home.css: This website contains selectors only used in home.css
+body{
+   background: black;
+}
 
-    All pages share the styles on index.css but you should create 
-    one more css for each page that will contain the selected used 
-    on that page only (the ones not reused in other pages).
-*/
+.background-container{
+    background-image: url("https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg");
+    width: 100%;
+    height: 80vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: rgb(0, 0, 0); 
+    opacity: 0.5;
+    position: absolute;
+    z-index: -1;
+}
+
+.background-overlay{
+    height: 80vh;
+    z-index: 1;
+}
