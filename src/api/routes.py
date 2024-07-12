@@ -59,11 +59,11 @@ def login_user():
     user = User.query.filter_by(email=email).first()
 
     if user is None or user.password != password:
-        return jsonify({"message": "invalid credentials"})
+        return jsonify({"message": "invalid credentials"}), 401
     
     token = create_access_token(identity=user.id)
 
-    return jsonify({"message": token}), 200
+    return jsonify({"message": token}), 201
 
 @api.route('/user/<int:id>', methods=['get'])
 @jwt_required()

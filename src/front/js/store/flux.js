@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: null,
 			message: null,
 			demo: [
 				{
@@ -46,6 +47,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			login: async (email, password) => {
+				try {
+					const response = await fetch (process.env.BACKEND_URL + "/api/login/", 
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({ email, password })
+					});
+
+					if (response.status !== 201) {
+						console.log("There has been some error"); 
+                        return false;
+					}
+
+					const data = await response.json()
+					sessionStorage.setItem("token", data.token)
+					setStore({ token: data.token })
+					return true
+						
+				} catch(error) {
+					console.log("error catch:", error)
+				}
 			}
 		}
 	};
