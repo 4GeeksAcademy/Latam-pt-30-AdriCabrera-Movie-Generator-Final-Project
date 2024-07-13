@@ -26,17 +26,22 @@ def handle_hello():
 @api.route('/signup', methods=['POST'])
 def create_user():
     data = request.json
+    username = data.get('username')
     email = data.get('email')
     password = data.get('password')
 
-    if None in [email, password]:
-        return jsonify({"message": "email and password are requiered"}), 400
+    if None in [username, email, password]:
+        return jsonify({"message": "username, email and password are required"}), 400
 
+    username_already_exists = db.session.execute(db.select(User).filter_by(username=username)).one_or_none()
+    if username_already_exists:
+        return jsonify({"message": "invalid credentials"}), 400
+    
     email_already_exists = db.session.execute(db.select(User).filter_by(email=email)).one_or_none()
     if email_already_exists:
         return jsonify({"message": "invalid credentials"}), 400
     
-    new_user = User(email=email, password=password)
+    new_user = User(username=username, email=email, password=password)
     try:
         db.session.add(new_user)
         db.session.commit()
@@ -50,20 +55,20 @@ def create_user():
 @api.route('/login', methods=['POST'])
 def login_user():
     data = request.json
-    email = data.get("email")
+    email_or_username = data.get("email_or_username")
     password = data.get("password")
 
-    if None in [email, password]:
-        return jsonify({"message": "email and password are requiered"}), 400
+    if None in [email_or_username, password]:
+        return jsonify({"message": "email or username and password are required"}), 400
     
-    user = User.query.filter_by(email=email).first()
-
+    user = User.query.filter((User.email == email_or_username) | (User.username == email_or_username)).first()
+    
     if user is None or user.password != password:
         return jsonify({"message": "invalid credentials"}), 401
     
     token = create_access_token(identity=user.id)
 
-    return jsonify({"message": token}), 201
+    return jsonify({"token": token}), 201
 
 @api.route('/user/<int:id>', methods=['get'])
 @jwt_required()
@@ -74,7 +79,8 @@ def get_user_data(id):
 
     user_data = {
          "id": user.id,
-        "email": user.email
+        "email": user.email,
+        "username": user.username
     }
 
     return jsonify(user_data), 200

@@ -6,13 +6,13 @@ export const Login = () => {
     const navigate = useNavigate()
     const { actions } = useContext(Context)
 
-    const [email, setEmail] = useState("")
+    const [emailOrUsername, setEmailOrUsername] = useState("")
     const [password, setPassword] = useState("")
 
 
     const handlesubmit = async (event) => {
-        event.preventDefault();
-        const success = await actions.login(email, password)
+        event.preventDefault(); // Evita que el formulario se envíe normalmente
+        const success = await actions.login(emailOrUsername, password)
         if (success) {
             navigate("/")
         } else {
@@ -28,7 +28,7 @@ export const Login = () => {
                 </div>
                 <form onSubmit={handlesubmit}>
                     <div className="mb-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label text-light">Correo Electrónico</label>
+                        <label htmlFor="exampleInputEmail1" className="form-label text-light">Correo Electrónico o Nombre de Usuario</label>
                         <div className="input">
                             <i className="fa-regular fa-envelope text-success"></i>
                             <input
@@ -37,8 +37,8 @@ export const Login = () => {
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
                                 placeholder="Ej: moviemate@movies.com"
-                                value={(email)}
-                                onChange={(event) => setEmail(event.target.value)}
+                                value={(emailOrUsername)}
+                                onChange={(event) => setEmailOrUsername(event.target.value)}
                             />
                         </div>
                         <div id="emailHelp" className="form-text">Nunca compartiremos tus datos personales con alguien más.</div>

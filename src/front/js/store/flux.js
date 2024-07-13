@@ -48,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			login: async (email, password) => {
+			login: async (emailOrUsername, password) => {
 				try {
 					const response = await fetch (process.env.BACKEND_URL + "/api/login/", 
 						{
@@ -56,7 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							headers: {
 								"Content-Type": "application/json"
 							},
-							body: JSON.stringify({ email, password })
+							body: JSON.stringify({ email_or_username: emailOrUsername, password })
 					});
 
 					if (response.status !== 201) {
