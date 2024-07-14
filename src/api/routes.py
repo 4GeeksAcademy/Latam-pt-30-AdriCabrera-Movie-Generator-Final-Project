@@ -23,7 +23,7 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@api.route('/signup', methods=['POST'])
+@api.route('/signin', methods=['POST'])
 def create_user():
     data = request.json
     username = data.get('username')

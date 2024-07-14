@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
+			user: null,
 			demo: [
 				{
 					title: "FIRST",
@@ -71,6 +72,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 						
 				} catch(error) {
 					console.log("error catch:", error)
+				}
+			},
+
+			signin: async (username, email, password) => {
+				try {
+					const response = await fetch (process.env.BACKEND_URL + "/api/signin/", 
+						{
+						method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								username: username,
+								email: email,
+								password: password
+							})
+					})
+					if(!response.status) {
+						console.log("Error creating user", response.status)
+					}
+
+					const data = await response.json()
+					setStore({user: data.user})
+
+				}catch(error) {
+					console.log("Error!", error)
 				}
 			}
 		}
