@@ -13,9 +13,9 @@ export const Signin = () => {
     const handlesubmit = async (event) => {
         event.preventDefault();
         const newUser = await actions.signin(username, email, password)
+
         if (newUser) {
-            // <Link to="/login" />
-            navigate("/")
+            navigate("/login")
         } else {
             console.log("Error!")
         }

@@ -3,6 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			user: null,
+			movies: [],
 			message: null,
 			demo: [
 				{
@@ -91,10 +92,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					if(!response.status) {
 						console.log("Error creating user", response.status)
+						return false
 					}
 
 					const data = await response.json()
 					setStore({user: data.user})
+					return true
+
+				}catch(error) {
+					console.log("Error!", error)
+				}
+			},
+
+			getMovies: async () => {
+				try {
+					const response = await fetch (process.env.BACKEND_URL + "/api/movies/")
+					
+					if(!response.status) {
+						console.log("Error! No movies", response.status)
+					}
+
+					const data = await response.json()
+					console.log("Estas son las peliculas", data)
+					setStore({movies: data.movies})
 
 				}catch(error) {
 					console.log("Error!", error)
