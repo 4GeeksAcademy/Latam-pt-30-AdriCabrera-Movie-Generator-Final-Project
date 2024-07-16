@@ -18,3 +18,27 @@ class User(db.Model):
             "email": self.email
             # do not serialize the password, its a security breach
         }
+    
+
+class Movies(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(300), unique=False, nullable=False)
+    genre = db.Column(db.String(250))
+    lenght = db.Column(db.String(100))
+    description = db.Column(db.String(950))
+    director = db.Column(db.String(300))
+    casting = db.Column(db.String(500))
+    release_date = db.Column(db.String(100))
+    rating = db.Column(db.Integer)
+
+    def __repr__(self):
+        return f'<Movies {self.title}>'
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "title": self.title,
+            "genre": self.genre,
+            "lenght": self.lenght,
+            "rating": self.rating
+        }

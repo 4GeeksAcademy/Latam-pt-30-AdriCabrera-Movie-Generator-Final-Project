@@ -1,7 +1,6 @@
 body{
    background: black;
 }
-
 .background-container{
     background-image: url("https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg");
     width: 100%;
@@ -13,8 +12,24 @@ body{
     position: absolute;
     z-index: -1;
 }
-
 .background-overlay{
     height: 80vh;
     z-index: 1;
+}
+.card{
+    width: 250px;
+    background: #141414;
+    border-radius: 4px;
+    transition: 0.2s linear;
+    margin: 3px;
+    position: relative;
+}
+
+.card:hover{
+  /* transform: scale(1.4);*/
+}
+.icon{
+    color: white;
+    font-size: 1.5rem;
+
 }
