@@ -2,8 +2,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			token: null,
-			message: null,
 			user: null,
+			message: null,
 			demo: [
 				{
 					title: "FIRST",

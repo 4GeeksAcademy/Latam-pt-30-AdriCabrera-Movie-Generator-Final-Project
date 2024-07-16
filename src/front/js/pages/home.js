@@ -11,7 +11,7 @@ export const Home = () => {
 		<div>
 		<div className=" background-container">
 			</div>
-			<div class="container background-overlay d-flex align-items-center">
+			<div className="container background-overlay d-flex align-items-center">
 					<div className="row">
 						<div className="col text-center">
 							<h1 className="text-white" >¿Tienes 20 apps de stream pero no sabes que ver?
