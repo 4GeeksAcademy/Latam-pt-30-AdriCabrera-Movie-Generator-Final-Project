@@ -30,13 +30,14 @@ export const Login = () => {
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label text-light">Correo Electrónico o Nombre de Usuario</label>
                         <div className="input">
+                            <i className="fa-regular fa-user text-success" />
                             <i className="fa-regular fa-envelope text-success"></i>
                             <input
                                 type="email"
                                 className="form-control custom-form-control"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
-                                placeholder="Ej: moviemate@movies.com"
+                                placeholder="Ingresa tu correo o nombre de usuario"
                                 value={(emailOrUsername)}
                                 onChange={(event) => setEmailOrUsername(event.target.value)}
                             />
