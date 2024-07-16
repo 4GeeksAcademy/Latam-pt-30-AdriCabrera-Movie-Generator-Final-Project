@@ -80,13 +80,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const response = await fetch (process.env.BACKEND_URL + "/api/signin/", 
 						{
 						method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								username: username,
-								email: email,
-								password: password
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify({
+							username: username,
+							email: email,
+							password: password
 							})
 					})
 					if(!response.status) {
@@ -99,6 +99,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}catch(error) {
 					console.log("Error!", error)
 				}
+			},
+			logout: async() => {
+				sessionStorage.removeItem("token")
+				setStore({ token: null })
 			}
 		}
 	};

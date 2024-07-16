@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+	const { actions, store } = useContext(Context)
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 			<div className="container">
@@ -25,12 +28,18 @@ export const Navbar = () => {
 					</li>
 				</ul>
 				<form className="d-flex" role="search">
-					<Link to={"/login"}>
-						<button className="btn btn-outline-success mx-3" type="submit">Inicio de sesion</button>
-					</Link>
-					<Link to={"/signin"}>
-						<button className="btn btn-outline-success" type="submit">Crea tu cuenta</button>
-					</Link>
+					{store.token ? (						
+							<button className="btn btn-outline-danger" type="button" onClick={actions.logout}>Cerrar sesión</button>						
+					) : (
+					<>
+						<Link to={"/login"}>
+							<button className="btn btn-outline-success mx-3" type="submit">Inicio de sesion</button>
+						</Link>
+						<Link to={"/signin"}>
+							<button className="btn btn-outline-success" type="submit">Crea tu cuenta</button>
+						</Link>
+					</>
+					)}
 				</form>
 				</div>
 			</div>
