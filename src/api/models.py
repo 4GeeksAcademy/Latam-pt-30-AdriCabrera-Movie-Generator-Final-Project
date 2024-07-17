@@ -23,13 +23,19 @@ class User(db.Model):
 class Movies(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300), unique=False, nullable=False)
-    genre = db.Column(db.String(250))
-    lenght = db.Column(db.String(100))
+    length = db.Column(db.String(100))
     description = db.Column(db.String(950))
-    director = db.Column(db.String(300))
-    casting = db.Column(db.String(500))
     release_date = db.Column(db.String(100))
-    rating = db.Column(db.Integer)
+    rating_IMBD = db.Column(db.Float)
+
+# # From Genre table
+#     genre_id = db.Column(db.Integer, Foreignkey=True)
+
+# From Director table
+    # director_id = db.Column(db.Integer, Foreignkey=True)
+
+# From Actors Table
+    # casting_id = db.Column(db.Integer, Foreignkey=True)
 
     def __repr__(self):
         return f'<Movies {self.title}>'
@@ -38,7 +44,48 @@ class Movies(db.Model):
         return{
             "id": self.id,
             "title": self.title,
-            "genre": self.genre,
+            "genre_id": self.genre,
             "lenght": self.lenght,
             "rating": self.rating
         }
+    
+class Genres(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    genre_name = db.Column(db.String(250))
+    classification = db.Column(db.String(250))
+
+def __repr__(self):
+    return f'<Genres {self.genre_name}'
+
+def serialize(self):
+    return{
+        "id": self.id,
+        "genre_name": self.genre_name,
+        "classification": self.classification
+    }
+
+class Directors(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300))
+
+def __ref__(self):
+    return f'<Directors {self.name}'
+
+def serialiaze(self):
+    return {
+        "id": self.id,
+        "name": self.name
+    }
+
+class Actors(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(500))
+
+def __ref__(self):
+    return f'<Actors {self.name}'
+
+def serialiaze(self):
+    return {
+        "id": self.id,
+        "name": self.name
+    }

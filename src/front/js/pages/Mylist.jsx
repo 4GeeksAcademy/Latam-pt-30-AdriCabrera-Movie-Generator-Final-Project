@@ -8,61 +8,61 @@ export const Mylist = () => {
     return (
         <div className="d-flex justify-content-center p-3 vw-100 parallax-mylist">
             {store.token ? (
-                <div class="container row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src={rigoImageUrl} class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <div className="container row row-cols-1 row-cols-md-4 g-4">
+                    <div className="col">
+                        <div className="card h-100">
+                            <img src={rigoImageUrl} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src={rigoImageUrl} class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
+                            <div className="card-footer">
+                                <small className="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src={rigoImageUrl} class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <div className="col">
+                        <div className="card h-100">
+                            <img src={rigoImageUrl} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
+                            <div className="card-footer">
+                                <small className="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src={rigoImageUrl} class="card-img-top" alt="..." />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                    <div className="col">
+                        <div className="card h-100">
+                            <img src={rigoImageUrl} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
                             </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
+                            <div className="card-footer">
+                                <small className="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col">
+                        <div className="card h-100">
+                            <img src={rigoImageUrl} className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Card title</h5>
+                                <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                            </div>
+                            <div className="card-footer">
+                                <small className="text-muted">Last updated 3 mins ago</small>
                             </div>
                         </div>
                     </div>
                 </div>
             ) : (
-                <div className="d-flex justify-content-center align-items-center flex-column"
-                    style={{ background: "white", height: "5rem", width: "30rem" }}>
-                    <span>Usuario no autenticado</span>
-                    <span>INICIE SESIÓN PARA DESBLOQUEAR ESTA FUNCIÓN</span>
+                <div className="mt-5 alert alert-success text-center h-25" role="alert">
+                    Usuario no autenticado
+                    <br />
+                    INICIA SESIÓN PARA ACCEDER A TU LISTA PERSONALIZADA
                 </div>
             )}
         </div>
