@@ -28,31 +28,31 @@ export const Home = () => {
 				</div>
 		</div>
 
-		<div class="modal" id="exampleModal"  tabindex="-1">
-			<div class="modal-dialog modal-dialog-centered modal-lg">
-				<div class="modal-content text-light bg-dark">
-					<div class="modal-header">
-						<h5 class="modal-title">Recomiendame una peli</h5>
-						<button type="button" class="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+		<div className="modal" id="exampleModal"  tabindex="-1">
+			<div className="modal-dialog modal-dialog-centered modal-lg">
+				<div className="modal-content text-light bg-dark">
+					<div className="modal-header">
+						<h5 className="modal-title">Recomiendame una peli</h5>
+						<button type="button" className="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
-					<div class="modal-body">
-					<nav class="nav nav-pills nav-fill">
+					<div className="modal-body">
+					<nav className="nav nav-pills nav-fill">
 						<div className="row">
 						<div className="col-12">
-							<div class="dropdown">
-								<button class="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+							<div className="dropdown">
+								<button className="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Categoria
 								</button>
-								<ul class="dropdown-menu">
-									<li><a class="dropdown-item" href="#">Animadas</a></li>
-									<li><a class="dropdown-item" href="#">Comedia</a></li>
-									<li><a class="dropdown-item" href="#">Drama</a></li>
-									<li><a class="dropdown-item" href="#">Terror</a></li>
+								<ul className="dropdown-menu">
+									<li><a className="dropdown-item" href="#">Animadas</a></li>
+									<li><a className="dropdown-item" href="#">Comedia</a></li>
+									<li><a className="dropdown-item" href="#">Drama</a></li>
+									<li><a className="dropdown-item" href="#">Terror</a></li>
 								</ul>
 							</div>
 						</div>
 							<div className="col mt-2">
-								<img src="https://es.web.img3.acsta.net/pictures/14/02/13/11/08/054573.jpg" class="img-fluid" alt="pelicula"/>
+								<img src="https://es.web.img3.acsta.net/pictures/14/02/13/11/08/054573.jpg" className="img-fluid" alt="pelicula"/>
 							</div>
 							<div className="col">
 								<h3>Buscando a Nemo</h3>
@@ -64,28 +64,28 @@ export const Home = () => {
 								</p>
 								<h6>Elenco principal</h6>
 								<div className="d-flex justify-content-between card__elenco">
-									<img src={rigoImageUrl} class="img-thumbnail" alt="personaje"/>
-									<img src={rigoImageUrl} class="img-thumbnail" alt="personaje"/>
-									<img src={rigoImageUrl} class="img-thumbnail" alt="personaje"/>
+									<img src={rigoImageUrl} className="img-thumbnail" alt="personaje"/>
+									<img src={rigoImageUrl} className="img-thumbnail" alt="personaje"/>
+									<img src={rigoImageUrl} className="img-thumbnail" alt="personaje"/>
 								</div>
 								<h6 className="mt-2">Puntuacion</h6>
-								<div class="card border-success mb-3 w-100">
-									<div class="card-header text-light"> TMDB 78%</div>
-									<div class="card-body text-success">
-										<p class="card-text">Director: Andrew Stanton</p>
-										<p class="card-text">Categoria: animacion</p>
+								<div className="card border-success mb-3 w-100">
+									<div className="card-header text-light"> TMDB 78%</div>
+									<div className="card-body text-success">
+										<p className="card-text">Director: Andrew Stanton</p>
+										<p className="card-text">Categoria: animacion</p>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div className="col-12">
-							<div class="alert alert-warning text-center" role="alert">
-								Si deseas una búsqueda más personalizada, <a href="#" class="alert-link">click aquí.</a> 
+							<div className="alert alert-warning text-center" role="alert">
+								Si deseas una búsqueda más personalizada, <a href="#" className="alert-link">click aquí.</a> 
 							</div>
 						</div>
 					</nav>
 					 <div className="d-grid">
-						<button type="button" class="btn btn-outline-success fs-4">Generar otra película aleatoria 🎲</button>
+						<button type="button" className="btn btn-outline-success fs-4">Generar otra película aleatoria 🎲</button>
 					 </div>
 					</div>
 				</div>
