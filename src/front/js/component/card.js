@@ -48,7 +48,7 @@ export const Card = () => {
 								<button type="button" className="btn btn-outline-success"><i className="icon fa-solid fa-circle-chevron-down"></i></button>
 							</div>
 							<p className="mt-2 fs-6 text-success">97% match</p>
-							<span className="badge text-light bg-success">Success</span>
+							<span className="badge text-light bg-success">Drama</span>
 						</div>
 						</div>
 					</div>
