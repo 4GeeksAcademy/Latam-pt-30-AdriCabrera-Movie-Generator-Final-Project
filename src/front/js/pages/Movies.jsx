@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "../../styles/movies.css";
+import { Context } from "../store/appContext";
 
 export const Movies = () => {
+    const { store, actions } = useContext(Context)
+
+    useEffect(() => {
+        actions.getMovies();
+    }, []);
+
     return (
         <div className="d-flex justify-content-center vw-100 p-3 m-3" id="parallax">
-            <div className="card mb-3">
-                <img className="card-img-top" src="..." alt="Card image cap" />
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                    <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
+            {store.movies.map((movie, index) => (
+                <div key={index} className="card mb-3">
+                    <img className="card-img-top" src={movie.image} alt={movie.title} />
+                    <div className="card-body">
+                        <h5 className="card-title">{movie.title}</h5>
+                        <p className="card-text">{movie.description}</p>
+                    </div>
                 </div>
-            </div>
+            ))}
         </div>
     )
 }

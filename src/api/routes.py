@@ -70,7 +70,7 @@ def login_user():
 
     return jsonify({"token": token}), 201
 
-@api.route('/user/<int:id>', methods=['get'])
+@api.route('/user/<int:id>', methods=['GET'])
 @jwt_required()
 def get_user_data(id):
     user = User.query.get(id)

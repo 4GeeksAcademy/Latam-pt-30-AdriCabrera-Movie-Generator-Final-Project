@@ -44,9 +44,9 @@ class Movies(db.Model):
         return{
             "id": self.id,
             "title": self.title,
-            "genre_id": self.genre,
-            "lenght": self.lenght,
-            "rating": self.rating
+            # "genre_id": self.genre,
+            "length": self.length,
+            "rating": self.rating_IMBD
         }
     
 class Genres(db.Model):
