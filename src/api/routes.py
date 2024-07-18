@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Movies
+from api.models import db, User, Movie
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -88,7 +88,7 @@ def get_user_data(id):
 
 @api.route('/movies', methods=['GET'])
 def get_movies():
-    movies = Movies.query.all()
+    movies = Movie.query.all()
     if len(movies) <1:
         return jsonify({"Message": "No movies exists"}), 404
     serializing = list(map(lambda x: x.serialize(), movies))

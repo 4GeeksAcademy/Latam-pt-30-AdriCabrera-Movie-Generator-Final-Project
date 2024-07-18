@@ -20,72 +20,163 @@ class User(db.Model):
         }
     
 
-class Movies(db.Model):
+class Movie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(300), unique=False, nullable=False)
     length = db.Column(db.String(100))
     description = db.Column(db.String(950))
-    release_date = db.Column(db.String(100))
-    rating_IMBD = db.Column(db.Float)
+    release_date = db.Column(db.Integer)
+    rating = db.Column(db.Float)
 
-# # From Genre table
-#     genre_id = db.Column(db.Integer, Foreignkey=True)
+    # Relationship with MovieGenre
+    # Child
+    movie_genres = db.relationship('MovieGenre', back_populates='movie', lazy=True)
 
-# From Director table
-    # director_id = db.Column(db.Integer, Foreignkey=True)
+    # Relationship with MovieDirector
+    # Child
+    movie_directors = db.relationship('MovieDirector', back_populates='movie', lazy=True)
 
-# From Actors Table
-    # casting_id = db.Column(db.Integer, Foreignkey=True)
+    # Relation with MovieActor
+    # Child
+    movie_actors = db.relationship('MovieActor', back_populates='movie', lazy=True)
 
     def __repr__(self):
-        return f'<Movies {self.title}>'
+        return f'<Movie {self.title}>'
 
     def serialize(self):
         return{
             "id": self.id,
             "title": self.title,
-            "genre_id": self.genre,
-            "lenght": self.lenght,
-            "rating": self.rating
+            "length": self.length,
+            "description": self.description,
+            "release_date": self.release_date,
+            "rating": self.rating,
+            "genres": list(map(lambda x: x.serialize(), self.movie_genres)),
+            "directors": list(map(lambda x: x.serialize(), self.movie_directors))
         }
-    
-class Genres(db.Model):
+
+
+# Genres info
+class Genre(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     genre_name = db.Column(db.String(250))
-    classification = db.Column(db.String(250))
 
-def __repr__(self):
-    return f'<Genres {self.genre_name}'
+    # Relationship with MovieGenre
+    # Child
+    movie_genres = db.relationship('MovieGenre', back_populates='genre', lazy=True)
+    
+    def __repr__(self):
+        return f'<Genre {self.genre_name}'
 
-def serialize(self):
-    return{
-        "id": self.id,
-        "genre_name": self.genre_name,
-        "classification": self.classification
-    }
+    def serialize(self):
+        return{
+            "id": self.id,
+            "genre_name": self.genre_name,
+        }
 
-class Directors(db.Model):
+# Genres mid table
+class MovieGenre(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Relationship with movie
+    # Parent
+    movie = db.relationship('Movie', back_populates='movie_genres')
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+   
+    # Relationship with Genre
+    genre_id = db.Column(db.Integer, db.ForeignKey('genre.id'))
+    # Parent
+    genre = db.relationship('Genre', back_populates='movie_genres')
+
+    def __repr__(self):
+        return f'<MovieGenre {self.id}'
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "genre": self.genre.serialize()
+        }
+
+# Directors Info
+class Director(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(300))
+    lastname = db.Column(db.String(300))
 
-def __ref__(self):
-    return f'<Directors {self.name}'
+     # Relationship with MovieDirector
+    # Child
+    movie_directors = db.relationship('MovieDirector', back_populates='director', lazy=True)
 
-def serialiaze(self):
-    return {
-        "id": self.id,
-        "name": self.name
-    }
+    def __ref__(self):
+        return f'<Director {self.name}'
 
-class Actors(db.Model):
+    def serialiaze(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "lastname": self.lastname
+        }
+
+# Directors mid table
+class MovieDirector(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(500))
+    # Relationship with movie
+    # Parent
+    movie = db.relationship('Movie', back_populates='movie_directors')
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+   
+    # Relationship with Director
+    director_id = db.Column(db.Integer, db.ForeignKey('director.id'))
+    # Parent
+    director = db.relationship('Director', back_populates='movie_directors')
 
-def __ref__(self):
-    return f'<Actors {self.name}'
+    def __repr__(self):
+        return f'<MovieDirector {self.id}'
 
-def serialiaze(self):
-    return {
-        "id": self.id,
-        "name": self.name
-    }
+    def serialize(self):
+        return{
+            "id": self.id,
+            "director": self.director.serialize()
+        }
+
+# Actors info
+class Actor(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(300))
+    lastname = db.Column(db.String(300))
+
+     # Relationship with MovieActor
+    # Child
+    movie_actors = db.relationship('MovieActor', back_populates='actor', lazy=True)
+
+    def __ref__(self):
+        return f'<Actor {self.name}'
+
+    def serialiaze(self):
+        return {
+            "actor_id": self.id,
+            "name": self.name,
+            "lastname": self.lastname
+        }
+
+# Actors mid table
+class MovieActor(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+   # Relationship with movie
+    # Parent
+    movie = db.relationship('Movie', back_populates='movie_actors')
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+
+ # Relationship with Genre
+    actor_id = db.Column(db.Integer, db.ForeignKey('actor.id'))
+    # Parent
+    actor = db.relationship('Actor', back_populates='movie_actors')
+
+    def __repr__(self):
+        return f'<MovieActor{self.id}'
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "director": self.actor.serialize()
+        }
