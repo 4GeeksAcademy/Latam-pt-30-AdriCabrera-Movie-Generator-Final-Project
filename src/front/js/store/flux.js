@@ -106,15 +106,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			getMovies: async () => {
 				try {
-					const response = await fetch (process.env.BACKEND_URL + "/api/movies/")
+					const response = await fetch (process.env.BACKEND_URL + "/api/movies")
 					
-					if(!response.status) {
+					if(response.status !== 200) {
 						console.log("Error! No movies", response.status)
 					}
 
 					const data = await response.json()
-					console.log("Estas son las peliculas", data)
-					setStore({movies: data.movies})
+					console.log("This is the data", data)
+					setStore({movies: data})
 
 				}catch(error) {
 					console.log("Error!", error)
