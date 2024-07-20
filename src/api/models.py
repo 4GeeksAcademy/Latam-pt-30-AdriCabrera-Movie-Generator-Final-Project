@@ -25,8 +25,9 @@ class Movie(db.Model):
     title = db.Column(db.String(300), unique=False, nullable=False)
     length = db.Column(db.String(100))
     description = db.Column(db.String(950))
-    release_date = db.Column(db.Integer)
+    release_date = db.Column(db.String(50))
     rating = db.Column(db.Float)
+    img_url = db.Column(db.String(200))
 
     # Relationship with MovieGenre
     # Child
@@ -111,7 +112,7 @@ class Director(db.Model):
     def __ref__(self):
         return f'<Director {self.name}'
 
-    def serialiaze(self):
+    def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
@@ -153,7 +154,7 @@ class Actor(db.Model):
     def __ref__(self):
         return f'<Actor {self.name}'
 
-    def serialiaze(self):
+    def serialize(self):
         return {
             "actor_id": self.id,
             "name": self.name,
