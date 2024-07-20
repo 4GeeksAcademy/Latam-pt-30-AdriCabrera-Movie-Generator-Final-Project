@@ -6,6 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			movies: [],
 			specificMovie: null,
 			popularMovies: [],
+			movieComments: [],
 			message: null,
 			demo: [
 				{
@@ -50,6 +51,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			setToken: () => {
+				const token = sessionStorage.getItem('token')
+				setStore({ token: token })
 			},
 			login: async (emailOrUsername, password) => {
 				try {
@@ -109,6 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (response.status !== 200) {
 						console.log("Error! No movies", response.status)
+						return;
 					}
 
 					const data = await response.json()
@@ -148,6 +154,47 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.log("Something is wrong", error)
+				}
+			},
+			getMovieComments: async (movie_id) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id)
+
+					if (response.status !== 200) {
+						console.log("Error! No movies", response.status)
+						return;
+					}
+
+					const data = await response.json()
+					console.log("This is the data", data)
+					setStore({ movieComments: data })
+
+				} catch (error) {
+					console.log("Error!", error)
+				}
+			},
+			createMovieComment: async (movie_id, content) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": "Bearer " + sessionStorage.getItem('token')
+							},
+							body: JSON.stringify({ content })
+						})
+					if (!response.status) {
+						console.log("Error creating user", response.status)
+						return false
+					}
+
+					const data = await response.json()
+					return true
+
+				} catch (error) {
+					console.log("Error!", error)
+					return false;
 				}
 			}
 		}

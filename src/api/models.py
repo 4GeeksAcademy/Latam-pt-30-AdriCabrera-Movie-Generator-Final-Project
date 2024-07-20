@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -41,6 +42,9 @@ class Movie(db.Model):
     # Child
     movie_actors = db.relationship('MovieActor', back_populates='movie', lazy=True)
 
+    # Relation with Comments
+    comments = db.relationship('Comment', back_populates='movie', lazy=True)
+
     def __repr__(self):
         return f'<Movie {self.title}>'
 
@@ -57,7 +61,6 @@ class Movie(db.Model):
             "directors": list(map(lambda x: x.director_serialize(), self.movie_directors)),
             "actors": list(map(lambda x: x.actor_serialize(), self.movie_actors))
         }
-
 
 # Genres info
 class Genre(db.Model):
@@ -187,9 +190,34 @@ class MovieActor(db.Model):
     def serialize(self):
         return{
             "id": self.id,
+            "director": self.actor.serialize(),
             "actor": self.actor.serialize()
         }
 
     def actor_serialize(self):
         return self.actor.serialize()
     
+            
+    
+# Comments
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User')
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    movie = db.relationship('Movie')
+    content = db.Column(db.String(200), nullable=False)
+    create_at = db.Column(db.DateTime, default=datetime.now)
+
+    def __ref__(self):
+        return f'<Comment {self.content}'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "movie_id": self.movie_id,
+            "content": self.content,
+            "create_at": str(self.create_at),
+            "user": self.user.serialize()
+        }

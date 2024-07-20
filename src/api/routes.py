@@ -2,10 +2,10 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Movie
+from api.models import Comment, db, User, Movie
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, get_jwt_identity
 from flask_jwt_extended import jwt_required
 
 api = Blueprint('api', __name__)
@@ -108,3 +108,23 @@ def get_popular_movies():
         return jsonify({"Message": "Nothing to see here"}), 404
     serialized_movies = [movie.serialize() for movie in popular_movies]
     return jsonify(serialized_movies), 200
+@api.route('/comments/<int:movie_id>', methods=['GET'])
+def get_movie_comments(movie_id):
+    movie = Movie.query.get(movie_id)
+
+    serializing = [x.serialize() for x in movie.comments]
+    return jsonify(serializing), 200
+
+@api.route('/comments/<int:movie_id>', methods=['POST'])
+@jwt_required()
+def post_movie_comments(movie_id):
+    comment = Comment()
+    comment.user_id = get_jwt_identity()
+    comment.movie_id = movie_id
+    comment.content = request.json['content']
+
+    db.session.add(comment)
+    db.session.commit()
+
+    serializing = { 'msg': 'comment created'}
+    return jsonify(serializing), 201
