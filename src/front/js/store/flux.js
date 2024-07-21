@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			user: null,
 			movies: [],
+			bestMovies: [],
 			message: null,
 			demo: [
 				{
@@ -25,14 +26,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: async () => {
-				try{
+				try {
 					// fetching data from the backend
 					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
 					const data = await resp.json()
 					setStore({ message: data.message })
 					// don't forget to return something, that is how the async resolves
 					return data;
-				}catch(error){
+				} catch (error) {
 					console.log("Error loading message from backend", error)
 				}
 			},
@@ -52,77 +53,77 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			login: async (emailOrUsername, password) => {
 				try {
-					const response = await fetch (process.env.BACKEND_URL + "/api/login/", 
+					const response = await fetch(process.env.BACKEND_URL + "/api/login/",
 						{
 							method: "POST",
 							headers: {
 								"Content-Type": "application/json"
 							},
-							body: JSON.stringify({ email_or_username: emailOrUsername, password })
-					});
+							body: JSON.stringify({ email_or_username: emailOrUsername, password: password })
+						});
 
 					if (response.status !== 201) {
-						console.log("There has been some error"); 
-                        return false;
+						console.log("There has been some error");
+						return false;
 					}
 
 					const data = await response.json()
 					sessionStorage.setItem("token", data.token)
-					setStore({ token: data.token })
+					setStore({ ...getStore(), token: data.token, user: data.user })
 					return true
-						
-				} catch(error) {
+
+				} catch (error) {
 					console.log("error catch:", error)
 				}
 			},
 
 			signin: async (username, email, password) => {
 				try {
-					const response = await fetch (process.env.BACKEND_URL + "/api/signin/", 
+					const response = await fetch(process.env.BACKEND_URL + "/api/signin/",
 						{
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({
-							username: username,
-							email: email,
-							password: password
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json"
+							},
+							body: JSON.stringify({
+								username: username,
+								email: email,
+								password: password
 							})
-					})
-					if(!response.status) {
+						})
+					if (!response.status) {
 						console.log("Error creating user", response.status)
 						return false
 					}
 
 					const data = await response.json()
-					setStore({user: data.user})
+					setStore({ user: data.user })
 					return true
 
-				}catch(error) {
+				} catch (error) {
 					console.log("Error!", error)
 				}
 			},
 
 			getMovies: async () => {
 				try {
-					const response = await fetch (process.env.BACKEND_URL + "/api/movies")
-					
-					if(response.status !== 200) {
+					const response = await fetch(process.env.BACKEND_URL + "/api/movies")
+
+					if (response.status !== 200) {
 						console.log("Error! No movies", response.status)
 					}
 
 					const data = await response.json()
 					console.log("This is the data", data)
-					setStore({movies: data})
+					setStore({ movies: data })
 
-				}catch(error) {
+				} catch (error) {
 					console.log("Error!", error)
 				}
 			},
-			logout: async() => {
+			logout: async () => {
 				sessionStorage.removeItem("token")
-				setStore({ token: null })
+				setStore({ ...getStore(), token: null, user: null })
 			}
 		}
 	};

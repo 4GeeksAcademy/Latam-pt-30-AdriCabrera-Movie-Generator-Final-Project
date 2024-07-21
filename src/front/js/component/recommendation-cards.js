@@ -15,8 +15,8 @@ export const RecommendationCards = () => {
                     <div className="row row-cols-1 row-cols-md-4">
                         {
                             [1, 2, 3, 4]
-                                .map(e =>
-                                    <div key={e} className="col">
+                                .map((e, i) =>
+                                    <div key={i} className="col">
                                         <RecommendationCard id={e} />
                                     </div>
                                 )

@@ -66,9 +66,9 @@ def login_user():
     if user is None or user.password != password:
         return jsonify({"message": "invalid credentials"}), 401
     
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=user.id) 
 
-    return jsonify({"token": token}), 201
+    return jsonify({"token": token ,"user": user.serialize()}), 201
 
 @api.route('/user/<int:id>', methods=['GET'])
 @jwt_required()
