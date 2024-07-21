@@ -16,6 +16,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Movies } from "./pages/Movies.jsx";
 import { Mylist } from "./pages/Mylist.jsx";
+import { SpecificInformation } from "./pages/SpecificInformation.jsx";
 import { Recomended } from "./pages/Recomended.jsx";
 
 //create your first component
@@ -38,6 +39,7 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<Movies/>} path="/movies"/>
                         <Route element={<Mylist/>} path="/mylist"/>
+                        <Route element={<SpecificInformation />} path="/SpecificInformation"/>
                         <Route element={<Recomended/>} path="/recomended"/>
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />

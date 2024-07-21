@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			user: null,
 			movies: [],
+			specificMovie: null,
 			message: null,
 			demo: [
 				{
@@ -23,7 +24,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-
 			getMessage: async () => {
 				try{
 					// fetching data from the backend
@@ -75,7 +75,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("error catch:", error)
 				}
 			},
-
 			signin: async (username, email, password) => {
 				try {
 					const response = await fetch (process.env.BACKEND_URL + "/api/signin/", 
@@ -103,7 +102,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error!", error)
 				}
 			},
-
 			getMovies: async () => {
 				try {
 					const response = await fetch (process.env.BACKEND_URL + "/api/movies/")
@@ -118,6 +116,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				}catch(error) {
 					console.log("Error!", error)
+				}
+			},
+			getSpecificMovie: async (id) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + `/api/movies/${id}`);
+					
+					if (!response.ok) {
+						console.log("Error! No movie found", response.status);
+					}
+
+					const data = await response.json();
+					setStore({ specificMovie: data });
+				} catch (error) {
+					console.log("Error!", error);
 				}
 			},
 			logout: async() => {

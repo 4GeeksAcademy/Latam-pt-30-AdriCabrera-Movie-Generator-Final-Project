@@ -1,0 +1,93 @@
+.containerSpecificInformation {
+    position: relative;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    padding-left: 100px;
+}
+
+.containerSpecificInformation::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://i0.wp.com/imgs.hipertextual.com/wp-content/uploads/2017/03/Captura-de-pantalla-2017-03-30-a-las-11.59.05.png?w=2012&quality=60&strip=all&ssl=1');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.4;
+    z-index: -1; 
+}
+
+.poster-container {
+    position: relative;
+}
+
+.imgSpecificInformation {
+    border-radius: 10px;
+}
+
+.circle-container {
+    width: 50px; 
+    height: 50px; 
+    background-color: #1C3F3F; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.puntuacion {
+    padding-left: 20px;
+    padding-bottom: 10px;
+}
+
+.puntuacion p {
+    margin: 0;
+    padding: 0;
+}
+
+.infoContainer {
+    padding-left: 30px;
+}
+
+.generalInfo {
+    max-width: 85%;
+}
+
+.DuracionSpecificInformation {
+    padding-left: 5px;
+}
+
+.commentsSpecificInformation {
+    padding-left: 100px;
+    padding-top: 30px;
+}
+
+.people {
+    display: flex;
+    gap: 50px;
+}
+
+h1 {
+    color: rgb(232, 241, 250);
+}
+
+h3 {
+    color: rgb(232, 241, 250);
+}
+
+h4 {
+    color: rgb(232, 241, 250);
+}
+
+h6 {
+    color: rgb(232, 241, 250);
+}
+
+p {
+    color: rgb(160, 160, 160);
+}
