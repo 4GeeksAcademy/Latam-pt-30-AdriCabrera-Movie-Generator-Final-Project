@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Movies
+from api.models import db, User, Movie
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token
@@ -66,11 +66,11 @@ def login_user():
     if user is None or user.password != password:
         return jsonify({"message": "invalid credentials"}), 401
     
-    token = create_access_token(identity=user.id)
+    token = create_access_token(identity=user.id) 
 
-    return jsonify({"token": token}), 201
+    return jsonify({"token": token ,"user": user.serialize()}), 201
 
-@api.route('/user/<int:id>', methods=['get'])
+@api.route('/user/<int:id>', methods=['GET'])
 @jwt_required()
 def get_user_data(id):
     user = User.query.get(id)
@@ -88,7 +88,7 @@ def get_user_data(id):
 
 @api.route('/movies', methods=['GET'])
 def get_movies():
-    movies = Movies.query.all()
+    movies = Movie.query.all()
     if len(movies) <1:
         return jsonify({"Message": "No movies exists"}), 404
     serializing = list(map(lambda x: x.serialize(), movies))

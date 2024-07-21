@@ -26,10 +26,14 @@ body{
 }
 
 .card:hover{
-  /* transform: scale(1.4);*/
+  /*- transform: scale(1.4);*/
 }
 .icon{
     color: white;
     font-size: 1.5rem;
 
+}
+.card__elenco img{
+    width: 100px;
+    height: 100px;
 }
