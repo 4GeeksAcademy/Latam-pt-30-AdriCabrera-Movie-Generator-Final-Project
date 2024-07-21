@@ -52,6 +52,7 @@ class Movie(db.Model):
             "description": self.description,
             "release_date": self.release_date,
             "rating": self.rating,
+            "img_url": self.img_url,
             "genres": list(map(lambda x: x.serialize(), self.movie_genres)),
             "directors": list(map(lambda x: x.serialize(), self.movie_directors)),
             "actors": list(map(lambda x: x.serialize(), self.movie_actors))
@@ -182,3 +183,4 @@ class MovieActor(db.Model):
             "id": self.id,
             "director": self.actor.serialize()
         }
+    

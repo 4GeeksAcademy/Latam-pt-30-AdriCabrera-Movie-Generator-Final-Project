@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			user: null,
 			movies: [],
-			bestMovies: [],
+			popularMovies: [],
 			message: null,
 			demo: [
 				{
@@ -124,6 +124,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: async () => {
 				sessionStorage.removeItem("token")
 				setStore({ ...getStore(), token: null, user: null })
+			},
+
+			getPopularMovies: async () => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/popular")
+					if (response.status !== 200) {
+						console.log("Wait nothing popular here", response.status)
+					}
+
+					const data = await response.json()
+					console.log("Here are your popular movies", data)
+					setStore({ popularMovies: data })
+
+				} catch (error) {
+					console.log("Something is wrong", error)
+				}
 			}
 		}
 	};
