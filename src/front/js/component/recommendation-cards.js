@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { RecommendationCard } from "./recommendation-card";
+import { Context } from "../store/appContext";
 
-export const RecommendationCards = () => {
+export const RecommendationCards = ({ movie }) => {
+    const { actions, store } = useContext(Context)
+    useEffect(() => {
+        actions.getPopularMovies()
+    }, []);
     return (
         <div id="carouselExampleIndicators" className="carousel slide">
             <div className="carousel-indicators">
@@ -10,30 +15,14 @@ export const RecommendationCards = () => {
                 <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             </div>
             <div className="carousel-inner">
-                {/* esta es la imagen 1 */}
                 <div className="carousel-item active">
-                    <div className="row row-cols-1 row-cols-md-4">
+                    <div className="d-flex flex-row overflow-scroll">
                         {
-                            [1, 2, 3, 4]
-                                .map((e, i) =>
-                                    <div key={i} className="col">
-                                        <RecommendationCard id={e} />
-                                    </div>
-                                )
-                        }
-                    </div>
-                </div>
-
-                {/* esta es la imagen 2 */}
-                <div className="carousel-item">
-                    <div className="row row-cols-1 row-cols-md-4">
-                        {
-                            [5, 6, 7, 8]
-                                .map(e =>
-                                    <div key={e} className="col">
-                                        <RecommendationCard id={e} />
-                                    </div>
-                                )
+                            store.popularMovies.map((movie, i) =>
+                                <div key={i} className="col">
+                                    <RecommendationCard movie={movie} />
+                                </div>
+                            )
                         }
                     </div>
                 </div>
