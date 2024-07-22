@@ -9,17 +9,23 @@ export const Movies = () => {
         actions.getMovies();
     }, []);
 
+    const movies = Array.isArray(store.movies) ? store.movies : [];
+
     return (
         <div className="d-flex justify-content-center vw-100 p-3 m-3" id="parallax">
-            {store.movies.map((movie, index) => (
-                <div key={index} className="card mb-3">
-                    <img className="card-img-top" src={movie.image} alt={movie.title} />
-                    <div className="card-body">
-                        <h5 className="card-title">{movie.title}</h5>
-                        <p className="card-text">{movie.description}</p>
+            {movies.length > 0 ? (
+                movies.map((movie, index) => (
+                    <div key={index} className="card mb-3">
+                        <img className="card-img-top" src={movie.image} alt={movie.title} />
+                        <div className="card-body">
+                            <h5 className="card-title">{movie.title}</h5>
+                            <p className="card-text">{movie.description}</p>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))
+            ) : (
+                <p>No movies available</p>
+            )}
         </div>
-    )
-}
+    );
+};

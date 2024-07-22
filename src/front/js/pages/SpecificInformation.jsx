@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./../../styles/specificInformation.css";
+import { Context } from "../store/appContext";
 
 export const SpecificInformation = () => {
+    const { store } = useContext(Context);
+    const { movies } = store;
+
+    if (!movies) {
+        return <p>Cargando información...</p>;
+    }
 
     return (
         <React.Fragment>
@@ -9,23 +16,23 @@ export const SpecificInformation = () => {
                 <div className="poster-container">
                     <img
                         className="imgSpecificInformation"
-                        src="http://es.web.img3.acsta.net/pictures/14/02/13/11/08/054573.jpg"
-                        alt="Buscando a Nemo"
+                        src={movies.image}
+                        alt={movies.title}
                         style={{ maxWidth: "280px", maxHeight: "360px" }}
                     />
                 </div>
                 <div className="infoContainer">
                     <div className="tituloSpecificInformation d-flex">
-                        <h1>Buscando a Nemo</h1>
-                        <h1>(2003)</h1>
+                        <h1>{movies.title}</h1>
+                        <h1>({movies.year})</h1>
                     </div>
                     <div className="d-flex">
-                        <p> - Animada</p>
-                        <p className="DuracionSpecificInformation"> - 1h 34m</p>
+                        <p> - {movies.genre}</p>
+                        <p className="DuracionSpecificInformation"> - {movies.length}</p>
                     </div>
                     <div className="d-flex">
                         <div className="circle-container">
-                            <div className="circle-text">93%</div>
+                            <div className="circle-text">{movies.rating}%</div>
                         </div>
                         <div className="puntuacion">
                             <p>Puntuación</p>
@@ -34,25 +41,19 @@ export const SpecificInformation = () => {
                     </div>
                     <div className="generalInfo">
                         <h4><strong>Vista general</strong></h4>
-                        <p>La película narra la historia de un pez payaso llamado Marlin que, tras perder a su esposa y casi todos sus hijos en un ataque de barracuda, se vuelve extremadamente protector con su único hijo sobreviviente, Nemo. Cuando Nemo es capturado por un buzo y llevado a una pecera en Sídney, Marlin se embarca en una aventura épica para rescatarlo.</p>
+                        <p>{movies.description}</p>
                     </div>
                     <div>
                         <h6><strong>Director</strong></h6>
-                        <p>Andrew Stanton</p>
+                        <p>{movies.directors}</p>
                     </div>
                     <div className="people d-flex">
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Albert Brooks</p>
-                        </div>
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Ellen DeGeneres</p>
-                        </div>
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Alexander Gould</p>
-                        </div>
+                        {specificMovie.actors.map((actors, index) => (
+                            <div key={index}>
+                                <h6><strong>Elenco</strong></h6>
+                                <p>{actors}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

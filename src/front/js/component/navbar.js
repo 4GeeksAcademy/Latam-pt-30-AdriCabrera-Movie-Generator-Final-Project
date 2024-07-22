@@ -33,7 +33,12 @@ export const Navbar = () => {
 					</ul>
 					<form className="d-flex" role="search">
 						{store.token ? (
-							<button className="btn btn-outline-danger" type="button" onClick={actions.logout}>Cerrar sesión</button>
+							<>
+								<span className="navbar-text text-white me-3">
+									<i className="fa-regular fa-user text-success" /> <strong>{store.user.username}</strong>
+								</span>
+								<button className="btn btn-outline-danger" type="button" onClick={actions.logout}>Cerrar sesión</button>
+							</>
 						) : (
 							<>
 								<Link to={"/login"}>
