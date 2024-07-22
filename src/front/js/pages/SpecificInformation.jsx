@@ -16,9 +16,10 @@ export const SpecificInformation = () => {
                 <div className="poster-container">
                     <img
                         className="imgSpecificInformation"
-                        src={movies.image}
+                        src={movies.img_url}
                         alt={movies.title}
                         style={{ maxWidth: "280px", maxHeight: "360px" }}
+                        onError={(e) => { e.target.onerror = null; e.target.src = "URL_DE_IMAGEN_DE_RESPALDO"; }}
                     />
                 </div>
                 <div className="infoContainer">
@@ -48,12 +49,16 @@ export const SpecificInformation = () => {
                         <p>{movies.directors}</p>
                     </div>
                     <div className="people d-flex">
-                        {specificMovie.actors.map((actors, index) => (
-                            <div key={index}>
-                                <h6><strong>Elenco</strong></h6>
-                                <p>{actors}</p>
-                            </div>
-                        ))}
+                        {movies.actors && movies.actors.length > 0 ? (
+                            movies.actors.map((actor, index) => (
+                                <div key={index}>
+                                    <h6><strong>Elenco</strong></h6>
+                                    <p>{actor}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <p>No hay información sobre el elenco disponible.</p>
+                        )}
                     </div>
                 </div>
             </div>

@@ -123,11 +123,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getSpecificMovie: async (id) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + `/api/movies/${id}`);
-
 					if (!response.ok) {
 						console.log("Error! No movie found", response.status);
 					}
-
 					const data = await response.json();
 					setStore({ specificMovie: data });
 				} catch (error) {
@@ -138,7 +136,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				sessionStorage.removeItem("token")
 				setStore({ ...getStore(), token: null, user: null })
 			},
-
 			getPopularMovies: async () => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/popular")
