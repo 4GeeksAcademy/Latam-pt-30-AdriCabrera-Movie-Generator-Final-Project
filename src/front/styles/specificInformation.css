@@ -67,6 +67,10 @@
     padding-top: 30px;
 }
 
+.director {
+    display: grid;
+    grid-template-columns: repeat(5, 10fr);
+}
 .people {
     display: grid;
     grid-template-columns: repeat(5, 10fr);

@@ -54,7 +54,7 @@ export const SpecificInformation = () => {
                         <h4><strong>Vista general</strong></h4>
                         <p>{specificMovie.description}</p>
                     </div>
-                    <div>
+                    <div className="director">
                         {specificMovie.directors && specificMovie.directors.length > 0 ? (
                             specificMovie.directors.map((director, index) => (
                                 <div key={index}>
