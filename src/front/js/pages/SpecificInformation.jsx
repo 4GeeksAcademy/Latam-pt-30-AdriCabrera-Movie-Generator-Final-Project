@@ -35,7 +35,7 @@ export const SpecificInformation = () => {
                         <h1>{specificMovie.title}</h1>
                         <h1>({specificMovie.release_date})</h1>
                     </div>
-                    <div className="d-flex">
+                    <div className="genreAndLength d-flex">
                         <div className="d-flex">
                             {specificMovie.genres && specificMovie.genres.length > 0 ? (
                                 specificMovie.genres.map((genre, index) => (
