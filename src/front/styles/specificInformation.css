@@ -67,13 +67,17 @@
     padding-top: 30px;
 }
 
+.genre {
+    margin-right: 10px;
+}
+
 .director {
     display: grid;
-    grid-template-columns: repeat(5, 10fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 .people {
     display: grid;
-    grid-template-columns: repeat(5, 10fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 h1 {

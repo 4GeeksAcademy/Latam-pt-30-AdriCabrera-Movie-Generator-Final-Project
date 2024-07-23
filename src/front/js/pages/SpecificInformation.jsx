@@ -24,7 +24,7 @@ export const SpecificInformation = () => {
                 <div className="poster-container">
                     <img
                         className="imgSpecificInformation"
-                        src={specificMovie.img_url}
+                        src={specificMovie?.img_url}
                         alt={specificMovie.title}
                         style={{ maxWidth: "280px", maxHeight: "360px" }}
                         onError={(e) => { e.target.onerror = null; e.target.src = "URL_DE_IMAGEN_DE_RESPALDO"; }}
@@ -37,7 +37,19 @@ export const SpecificInformation = () => {
                     </div>
                     <div className="d-flex">
                         <div className="d-flex">
-                            {specificMovie.genre && <p>- {specificMovie.genre}</p>}
+                            {specificMovie.genres && specificMovie.genres.length > 0 ? (
+                                specificMovie.genres.map((genre, index) => (
+                                    <div key={index}>
+                                        <p className="genre"> - {genre.genre_name} </p>
+                                    </div>
+                                ))
+                            ) : (
+                                <>
+                                    <div>
+                                        <p>No hay información sobre el genero disponible.</p>
+                                    </div>
+                                </>
+                            )}
                             <p className="DuracionSpecificInformation"> - {specificMovie.length} mins</p>
                         </div>
                     </div>
@@ -64,14 +76,16 @@ export const SpecificInformation = () => {
                             ))
                         ) : (
                             <>
-                                <h6><strong>Director</strong></h6>
-                                <p>No hay información sobre el director disponible.</p>
+                                <div>
+                                    <h6><strong>Director</strong></h6>
+                                    <p>No hay información sobre el director disponible.</p>
+                                </div>
                             </>
                         )}
                     </div>
                     <div className="people">
                         {specificMovie.actors && specificMovie.actors.length > 0 ? (
-                            specificMovie.actors.map((actor, index) => (
+                            specificMovie.actors.slice(0, 5).map((actor, index) => (
                                 <div key={index}>
                                     <h6><strong>Elenco</strong></h6>
                                     <p>{actor.name}</p>
@@ -79,8 +93,10 @@ export const SpecificInformation = () => {
                             ))
                         ) : (
                             <>
-                                <h6><strong>Elenco</strong></h6>
-                                <p>No hay información sobre el elenco disponible.</p>
+                                <div>
+                                    <h6><strong>Elenco</strong></h6>
+                                    <p>No hay información sobre el elenco disponible.</p>
+                                </div>
                             </>
                         )}
                     </div>
