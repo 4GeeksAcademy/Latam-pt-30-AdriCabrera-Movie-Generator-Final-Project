@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./../../styles/specificInformation.css";
+import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 
 export const SpecificInformation = () => {
+    const { actions, store } = useContext(Context);
+    const { specificMovie } = store;
+    const { id } = useParams();
+
+    useEffect(() => {
+        if (id) {
+            actions.getMovie(id);
+        }
+    }, [id]);
+
+    if (!specificMovie) {
+        return <p>Cargando información...</p>;
+    }
 
     return (
         <React.Fragment>
@@ -9,23 +24,26 @@ export const SpecificInformation = () => {
                 <div className="poster-container">
                     <img
                         className="imgSpecificInformation"
-                        src="http://es.web.img3.acsta.net/pictures/14/02/13/11/08/054573.jpg"
-                        alt="Buscando a Nemo"
+                        src={specificMovie.img_url}
+                        alt={specificMovie.title}
                         style={{ maxWidth: "280px", maxHeight: "360px" }}
+                        onError={(e) => { e.target.onerror = null; e.target.src = "URL_DE_IMAGEN_DE_RESPALDO"; }}
                     />
                 </div>
                 <div className="infoContainer">
                     <div className="tituloSpecificInformation d-flex">
-                        <h1>Buscando a Nemo</h1>
-                        <h1>(2003)</h1>
+                        <h1>{specificMovie.title}</h1>
+                        <h1>({specificMovie.release_date})</h1>
                     </div>
                     <div className="d-flex">
-                        <p> - Animada</p>
-                        <p className="DuracionSpecificInformation"> - 1h 34m</p>
+                        <div className="d-flex">
+                            {specificMovie.genre && <p>- {specificMovie.genre}</p>}
+                            <p className="DuracionSpecificInformation"> - {specificMovie.length} mins</p>
+                        </div>
                     </div>
                     <div className="d-flex">
                         <div className="circle-container">
-                            <div className="circle-text">93%</div>
+                            <div className="circle-text">{specificMovie.rating}%</div>
                         </div>
                         <div className="puntuacion">
                             <p>Puntuación</p>
@@ -34,25 +52,37 @@ export const SpecificInformation = () => {
                     </div>
                     <div className="generalInfo">
                         <h4><strong>Vista general</strong></h4>
-                        <p>La película narra la historia de un pez payaso llamado Marlin que, tras perder a su esposa y casi todos sus hijos en un ataque de barracuda, se vuelve extremadamente protector con su único hijo sobreviviente, Nemo. Cuando Nemo es capturado por un buzo y llevado a una pecera en Sídney, Marlin se embarca en una aventura épica para rescatarlo.</p>
+                        <p>{specificMovie.description}</p>
                     </div>
                     <div>
-                        <h6><strong>Director</strong></h6>
-                        <p>Andrew Stanton</p>
+                        {specificMovie.directors && specificMovie.directors.length > 0 ? (
+                            specificMovie.directors.map((director, index) => (
+                                <div key={index}>
+                                    <h6><strong>Director</strong></h6>
+                                    <p>{director.name}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <>
+                                <h6><strong>Director</strong></h6>
+                                <p>No hay información sobre el director disponible.</p>
+                            </>
+                        )}
                     </div>
-                    <div className="people d-flex">
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Albert Brooks</p>
-                        </div>
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Ellen DeGeneres</p>
-                        </div>
-                        <div>
-                            <h6><strong>Elenco</strong></h6>
-                            <p>Alexander Gould</p>
-                        </div>
+                    <div className="people">
+                        {specificMovie.actors && specificMovie.actors.length > 0 ? (
+                            specificMovie.actors.map((actor, index) => (
+                                <div key={index}>
+                                    <h6><strong>Elenco</strong></h6>
+                                    <p>{actor.name}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <>
+                                <h6><strong>Elenco</strong></h6>
+                                <p>No hay información sobre el elenco disponible.</p>
+                            </>
+                        )}
                     </div>
                 </div>
             </div>
