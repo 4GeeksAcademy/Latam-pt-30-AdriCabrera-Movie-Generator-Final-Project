@@ -120,7 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error!", error)
 				}
 			},
-			getSpecificMovie: async (id) => {
+			getMovie: async (id) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + `/api/movies/${id}`);
 					if (!response.ok) {

@@ -94,6 +94,13 @@ def get_movies():
     serializing = list(map(lambda x: x.serialize(), movies))
     return jsonify(serializing), 200
 
+@api.route('/movies/<int:id>', methods=['GET'])
+def get_specific_movies(id):
+    movie = Movie.query.get(id)
+    if movie is None:
+         return jsonify({"Message": "Movie not found"}), 404
+    return jsonify(movie.serialize()), 200
+
 @api.route('/popular', methods=['GET'])
 def get_popular_movies():
     popular_movies = Movie.query.filter(Movie.rating >= 8).all()

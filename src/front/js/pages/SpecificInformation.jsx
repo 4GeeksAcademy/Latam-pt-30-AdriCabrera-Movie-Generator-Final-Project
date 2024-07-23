@@ -1,12 +1,20 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "./../../styles/specificInformation.css";
 import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 
 export const SpecificInformation = () => {
-    const { store } = useContext(Context);
-    const { movies } = store;
+    const { actions, store } = useContext(Context);
+    const { specificMovie } = store;
+    const { id } = useParams();
 
-    if (!movies) {
+    useEffect(() => {
+        if (id) {
+            actions.getMovie(id);
+        }
+    }, [id]);
+
+    if (!specificMovie) {
         return <p>Cargando información...</p>;
     }
 
@@ -16,24 +24,26 @@ export const SpecificInformation = () => {
                 <div className="poster-container">
                     <img
                         className="imgSpecificInformation"
-                        src={movies.img_url}
-                        alt={movies.title}
+                        src={specificMovie.img_url}
+                        alt={specificMovie.title}
                         style={{ maxWidth: "280px", maxHeight: "360px" }}
                         onError={(e) => { e.target.onerror = null; e.target.src = "URL_DE_IMAGEN_DE_RESPALDO"; }}
                     />
                 </div>
                 <div className="infoContainer">
                     <div className="tituloSpecificInformation d-flex">
-                        <h1>{movies.title}</h1>
-                        <h1>({movies.year})</h1>
+                        <h1>{specificMovie.title}</h1>
+                        <h1>({specificMovie.release_date})</h1>
                     </div>
                     <div className="d-flex">
-                        <p> - {movies.genre}</p>
-                        <p className="DuracionSpecificInformation"> - {movies.length}</p>
+                        <div className="d-flex">
+                            {specificMovie.genre && <p>- {specificMovie.genre}</p>}
+                            <p className="DuracionSpecificInformation"> - {specificMovie.length} mins</p>
+                        </div>
                     </div>
                     <div className="d-flex">
                         <div className="circle-container">
-                            <div className="circle-text">{movies.rating}%</div>
+                            <div className="circle-text">{specificMovie.rating}%</div>
                         </div>
                         <div className="puntuacion">
                             <p>Puntuación</p>
@@ -42,22 +52,36 @@ export const SpecificInformation = () => {
                     </div>
                     <div className="generalInfo">
                         <h4><strong>Vista general</strong></h4>
-                        <p>{movies.description}</p>
+                        <p>{specificMovie.description}</p>
                     </div>
                     <div>
-                        <h6><strong>Director</strong></h6>
-                        <p>{movies.directors}</p>
-                    </div>
-                    <div className="people d-flex">
-                        {movies.actors && movies.actors.length > 0 ? (
-                            movies.actors.map((actor, index) => (
+                        {specificMovie.directors && specificMovie.directors.length > 0 ? (
+                            specificMovie.directors.map((director, index) => (
                                 <div key={index}>
-                                    <h6><strong>Elenco</strong></h6>
-                                    <p>{actor}</p>
+                                    <h6><strong>Director</strong></h6>
+                                    <p>{director.name}</p>
                                 </div>
                             ))
                         ) : (
-                            <p>No hay información sobre el elenco disponible.</p>
+                            <>
+                                <h6><strong>Director</strong></h6>
+                                <p>No hay información sobre el director disponible.</p>
+                            </>
+                        )}
+                    </div>
+                    <div className="people">
+                        {specificMovie.actors && specificMovie.actors.length > 0 ? (
+                            specificMovie.actors.map((actor, index) => (
+                                <div key={index}>
+                                    <h6><strong>Elenco</strong></h6>
+                                    <p>{actor.name}</p>
+                                </div>
+                            ))
+                        ) : (
+                            <>
+                                <h6><strong>Elenco</strong></h6>
+                                <p>No hay información sobre el elenco disponible.</p>
+                            </>
                         )}
                     </div>
                 </div>

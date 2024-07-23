@@ -55,7 +55,7 @@
 }
 
 .generalInfo {
-    max-width: 85%;
+    max-width: 90%;
 }
 
 .DuracionSpecificInformation {
@@ -68,8 +68,8 @@
 }
 
 .people {
-    display: flex;
-    gap: 50px;
+    display: grid;
+    grid-template-columns: repeat(5, 10fr);
 }
 
 h1 {
