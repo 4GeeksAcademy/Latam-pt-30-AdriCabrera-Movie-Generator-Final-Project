@@ -5,7 +5,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: null,
 			movies: [],
 			specificMovie: null,
-			bestMovies: [],
 			popularMovies: [],
 			message: null,
 			demo: [

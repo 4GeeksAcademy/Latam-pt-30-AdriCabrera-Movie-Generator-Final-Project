@@ -16,7 +16,7 @@ export const RecommendationCards = ({ movie }) => {
             </div>
             <div className="carousel-inner">
                 <div className="carousel-item active">
-                    <div className="d-flex flex-row overflow-scroll">
+                    <div className="d-flex flex-row overflow-scroll align-items-stretch">
                         {
                             store.popularMovies.map((movie, i) =>
                                 <div key={i} className="col">
