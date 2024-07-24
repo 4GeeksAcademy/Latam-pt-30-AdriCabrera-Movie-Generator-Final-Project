@@ -55,7 +55,7 @@
 }
 
 .generalInfo {
-    max-width: 85%;
+    max-width: 90%;
 }
 
 .DuracionSpecificInformation {
@@ -67,9 +67,17 @@
     padding-top: 30px;
 }
 
+.genre {
+    margin-right: 10px;
+}
+
+.director {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 .people {
-    display: flex;
-    gap: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
 }
 
 h1 {

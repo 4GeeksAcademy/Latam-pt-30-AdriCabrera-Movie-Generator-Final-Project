@@ -53,7 +53,7 @@ def setup_commands(app):
             movie.description = m['overview']
             movie.release_date = m['release_date']
             movie.rating = m['vote_average']
-            movie.img_url = m['backdrop_path']
+            movie.img_url = 'https://image.tmdb.org/t/p/w300_and_h450_bestv2' + m['poster_path']
             if print_screen:
                 print("Title: " + movie.title)
             db.session.add(movie)

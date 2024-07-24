@@ -136,6 +136,12 @@ def get_movie_list():
     movies = list(map(lambda ml: ml.serialize(), movie_list))
     return jsonify(movies), 200
 
+@api.route('/movies/<int:id>', methods=['GET'])
+def get_specific_movies(id):
+    movie = Movie.query.get(id)
+    if movie is None:
+         return jsonify({"Message": "Movie not found"}), 404
+    return jsonify(movie.serialize()), 200
 
 @api.route('/popular', methods=['GET'])
 def get_popular_movies():

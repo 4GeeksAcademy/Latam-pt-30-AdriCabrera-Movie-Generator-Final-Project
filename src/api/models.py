@@ -62,9 +62,9 @@ class Movie(db.Model):
             "release_date": self.release_date,
             "rating": self.rating,
             "img_url": self.img_url,
-            "genres": list(map(lambda x: x.serialize(), self.movie_genres)),
-            "directors": list(map(lambda x: x.serialize(), self.movie_directors)),
-            "actors": list(map(lambda x: x.serialize(), self.movie_actors))
+            "genres": list(map(lambda x: x.genre_serialize(), self.movie_genres)),
+            "directors": list(map(lambda x: x.director_serialize(), self.movie_directors)),
+            "actors": list(map(lambda x: x.actor_serialize(), self.movie_actors))
         }
     
 # My list info
@@ -131,6 +131,9 @@ class MovieGenre(db.Model):
             "id": self.id,
             "genre": self.genre.serialize()
         }
+    
+    def genre_serialize(self):
+        return self.genre.serialize()
 
 # Directors Info
 class Director(db.Model):
@@ -173,6 +176,9 @@ class MovieDirector(db.Model):
             "id": self.id,
             "director": self.director.serialize()
         }
+    
+    def director_serialize(self):
+        return self.director.serialize()
 
 # Actors info
 class Actor(db.Model):
@@ -213,6 +219,9 @@ class MovieActor(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-            "director": self.actor.serialize()
+            "actor": self.actor.serialize()
         }
+
+    def actor_serialize(self):
+        return self.actor.serialize()
     
