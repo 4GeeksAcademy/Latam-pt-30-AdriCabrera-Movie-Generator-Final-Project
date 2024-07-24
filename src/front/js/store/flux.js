@@ -172,7 +172,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ movieComments: data })
 
 				} catch (error) {
-					console.log("Error!", error)s
+					console.log("Error!", error)
 				}
 			},
 			createMovieComment: async (movie_id, content) => {
