@@ -3,7 +3,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Link } from "react-router-dom";
 
 
-export const ModalMovieDescription = ({ modalId, type, movie}) => {
+export const ModalMovieDescription = ({ modalId, type, movie }) => {
 
     return (
         <>
@@ -38,7 +38,7 @@ export const ModalMovieDescription = ({ modalId, type, movie}) => {
                                         <p>{movie?.description}</p>
                                         <h6>Elenco principal</h6>
                                         <div className="d-flex justify-content-between card__elenco">
-                                            {movie && movie?.actors?.slice(0, 3).map(actor => <img src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
+                                            {movie && movie?.actors?.slice(0, 3).map((actor, index) => <img key={index} src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
                                         </div>
                                         <h6 className="mt-2">Puntuacion</h6>
                                         <div className="card border-success mb-3 w-100">
@@ -52,7 +52,7 @@ export const ModalMovieDescription = ({ modalId, type, movie}) => {
                                 </div>
                                 <div className="col-12">
                                     <div className="alert alert-warning text-center" role="alert">
-                                        Si deseas una búsqueda más personalizada, <Link to="/SpecificInformation" className="alert-link">click aquí.</Link>
+                                        Si deseas una búsqueda más personalizada, <Link to={`/SpecificInformation/${movie?.id}`} className="alert-link">click aquí.</Link>
                                     </div>
                                 </div>
                             </nav>
