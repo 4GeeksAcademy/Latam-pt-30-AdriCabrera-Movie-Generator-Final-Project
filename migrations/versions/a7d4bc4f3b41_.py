@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e633923e76de
+Revision ID: a7d4bc4f3b41
 Revises: 
-Create Date: 2024-07-23 14:01:15.584472
+Create Date: 2024-07-24 05:14:21.770778
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e633923e76de'
+revision = 'a7d4bc4f3b41'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -54,6 +54,16 @@ def upgrade():
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
     )
+    op.create_table('comment',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('movie_id', sa.Integer(), nullable=False),
+    sa.Column('content', sa.String(length=200), nullable=False),
+    sa.Column('create_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['movie_id'], ['movie.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('movie_actor',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('movie_id', sa.Integer(), nullable=False),
@@ -86,6 +96,7 @@ def downgrade():
     op.drop_table('movie_genre')
     op.drop_table('movie_director')
     op.drop_table('movie_actor')
+    op.drop_table('comment')
     op.drop_table('user')
     op.drop_table('movie')
     op.drop_table('genre')

@@ -3,7 +3,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Link } from "react-router-dom";
 
 
-export const ModalMovieDescription = ({ modalId, type }) => {
+export const ModalMovieDescription = ({ modalId, type, movie}) => {
 
     return (
         <>
@@ -31,28 +31,21 @@ export const ModalMovieDescription = ({ modalId, type }) => {
                                         </div>
                                     </div>
                                     <div className="col mt-2">
-                                        <img src="https://es.web.img3.acsta.net/pictures/14/02/13/11/08/054573.jpg" className="img-fluid" alt="pelicula" />
+                                        <img src={movie?.img_url} className="img-fluid" alt="pelicula" />
                                     </div>
                                     <div className="col">
-                                        <h3>Buscando a Nemo</h3>
-                                        <p>Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido
-                                            el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que
-                                            se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró
-                                            hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos,
-                                            quedando esencialmente igual al original.
-                                        </p>
+                                        <h3>{movie?.title}</h3>
+                                        <p>{movie?.description}</p>
                                         <h6>Elenco principal</h6>
                                         <div className="d-flex justify-content-between card__elenco">
-                                            <img src={rigoImageUrl} className="img-thumbnail" alt="personaje" />
-                                            <img src={rigoImageUrl} className="img-thumbnail" alt="personaje" />
-                                            <img src={rigoImageUrl} className="img-thumbnail" alt="personaje" />
+                                            {movie && movie?.actors?.slice(0, 3).map(actor => <img src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
                                         </div>
                                         <h6 className="mt-2">Puntuacion</h6>
                                         <div className="card border-success mb-3 w-100">
-                                            <div className="card-header text-light"> TMDB 78%</div>
+                                            <div className="card-header text-dark fs-6 text"> {movie?.rating}</div>
                                             <div className="card-body text-success">
-                                                <p className="card-text">Director: Andrew Stanton</p>
-                                                <p className="card-text">Categoria: animacion</p>
+                                                <p className="card-text">Director:  {movie && movie.directors && movie.directors.length > 0 && movie.directors[0].name}</p>
+                                                <p className="card-text">Categoria: {movie?.genres[0].genre_name} </p>
                                             </div>
                                         </div>
                                     </div>
