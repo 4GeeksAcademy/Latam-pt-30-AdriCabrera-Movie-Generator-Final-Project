@@ -1,10 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Comment } from "../component/comment";
+import { Comment } from "./comment";
 import { Context } from "../store/appContext";
 
-export const CommentsP = () => {
-    const movieId = 1;
-
+export const CommentList = ({ movieId }) => {
     const { store, actions } = useContext(Context);
     const [content, setContent] = useState('');
 
