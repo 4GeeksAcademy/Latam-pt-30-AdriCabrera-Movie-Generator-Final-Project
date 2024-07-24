@@ -18,7 +18,6 @@ import { Movies } from "./pages/Movies.jsx";
 import { Mylist } from "./pages/Mylist.jsx";
 import { SpecificInformation } from "./pages/SpecificInformation.jsx";
 import { Recomended } from "./pages/Recomended.jsx";
-import { CommentsP } from "./pages/commentsP.jsx";
 
 //create your first component
 const Layout = () => {
