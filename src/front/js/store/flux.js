@@ -54,7 +54,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			setToken: () => {
 				const token = sessionStorage.getItem('token')
-				setStore({ token: token })
+				const user = JSON.parse(sessionStorage.getItem('user'))
+				setStore({ ...getStore(), user: user, token: token })
 			},
 			login: async (emailOrUsername, password) => {
 				try {
@@ -74,6 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json()
 					sessionStorage.setItem("token", data.token)
+					sessionStorage.setItem("user", JSON.stringify(data.user))
 					setStore({ ...getStore(), token: data.token, user: data.user })
 					return true
 
