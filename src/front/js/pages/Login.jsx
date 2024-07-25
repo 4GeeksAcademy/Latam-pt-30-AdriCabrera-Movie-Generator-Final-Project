@@ -33,7 +33,7 @@ export const Login = () => {
                             <i className="fa-regular fa-user text-success" />
                             <i className="fa-regular fa-envelope text-success"></i>
                             <input
-                                type="email"
+                                type="text"
                                 className="form-control custom-form-control"
                                 id="exampleInputEmail1"
                                 aria-describedby="emailHelp"
