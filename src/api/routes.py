@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import random
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Comment, db, User, Movie
+from api.models import Comment, Genre, db, User, Movie
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity
@@ -128,3 +129,21 @@ def post_movie_comments(movie_id):
 
     serializing = { 'msg': 'comment created'}
     return jsonify(serializing), 201
+
+@api.route('movies/random/<int:genre_id>', methods=['GET'])
+def get_random_movie(genre_id):
+    all_movies = None
+
+    if genre_id > 0:
+        rand_movie_by_genre = Genre.query.filter_by(id=genre_id).one_or_none()
+
+        if rand_movie_by_genre.movie_genres is None:
+            return jsonify({'msg': 'no movies found for selected genre'}), 404
+        
+        all_movies = [x.movie for x in rand_movie_by_genre.movie_genres] 
+    else:
+        all_movies = Movie.query.all()
+
+
+    rand_movie = random.choice(all_movies)
+    return jsonify(rand_movie.serialize()), 200

@@ -8,6 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			popularMovies: [],
 			movieComments: [],
 			message: null,
+			randomMovie: null,
 			demo: [
 				{
 					title: "FIRST",
@@ -169,7 +170,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json()
 					console.log("This is the data", data)
-					setStore({ movieComments: data })
+					setStore({ ...getStore(), movieComments: data })
 
 				} catch (error) {
 					console.log("Error!", error)
@@ -197,6 +198,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error!", error)
 					return false;
+				}
+			},
+			getRandomMovie: async (genreId = 0) => {
+				setStore({ ...getStore(), randomMovie: null })
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/movies/random/" + genreId)
+
+					if (response.status !== 200) {
+						console.log("Error! No movies", response.status)
+						return;
+					}
+
+					const data = await response.json()
+					console.log("This is the random movie", data)
+					setStore({ ...getStore(), randomMovie: data })
+
+
+				} catch (error) {
+					console.log("Error!", error)
 				}
 			}
 		}
