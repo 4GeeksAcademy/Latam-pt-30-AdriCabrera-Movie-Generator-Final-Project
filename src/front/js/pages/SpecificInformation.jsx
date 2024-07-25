@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from "react";
 import "./../../styles/specificInformation.css";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-import { CommentList } from "../component/commentList";
 
 export const SpecificInformation = () => {
     const { actions, store } = useContext(Context);
@@ -105,7 +104,6 @@ export const SpecificInformation = () => {
             </div>
             <div className="commentsSpecificInformation">
                 <h3><strong>Comentarios</strong></h3>
-                <CommentList movieId={id} />
             </div>
         </React.Fragment>
     );
