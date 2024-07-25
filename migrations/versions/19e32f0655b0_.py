@@ -8,6 +8,7 @@ Create Date: 2024-07-25 01:25:02.813605
 Revision ID: a7d4bc4f3b41
 Revises: 
 Create Date: 2024-07-24 05:14:21.770778
+>>>>>>>> b4e42a5f8c27c7f74ba737af500889a22f9088dc:migrations/versions/a7d4bc4f3b41_.py
 
 """
 from alembic import op
@@ -15,7 +16,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
+<<<<<<<< HEAD:migrations/versions/19e32f0655b0_.py
+revision = '19e32f0655b0'
+========
 revision = 'a7d4bc4f3b41'
+>>>>>>>> b4e42a5f8c27c7f74ba737af500889a22f9088dc:migrations/versions/a7d4bc4f3b41_.py
 down_revision = None
 branch_labels = None
 depends_on = None
