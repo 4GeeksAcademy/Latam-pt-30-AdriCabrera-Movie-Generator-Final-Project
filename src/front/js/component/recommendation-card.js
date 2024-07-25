@@ -6,7 +6,7 @@ import { Context } from "../store/appContext";
 export const RecommendationCard = ({ movie }) => {
 	const { actions, store } = useContext(Context)
 
-	const modalId = 'modal' + movie?.id;
+	// const modalId = 'modal' + movie?.id;
 
 	return (
 		<>
@@ -20,11 +20,11 @@ export const RecommendationCard = ({ movie }) => {
 							<button type="button" className="btn btn-outline-success"><i className="icon fa-solid fa-circle-plus"></i></button>
 						}
 
-						<button type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target={'#' + modalId}><i className="icon fa-solid fa-circle-chevron-down"></i></button>
+						<button type="button" className="btn btn-outline-success" data-bs-toggle="modal" data-bs-target={'#modal' + movie?.id}><i className="icon fa-solid fa-circle-chevron-down"></i></button>
 					</div>
 					<p className="mt-2 fs-6 text-success">{movie?.rating}</p>
 				</div>
 			</div>
-			<ModalMovieDescription modalId={modalId} movie={movie} type="recommendation" />
+			<ModalMovieDescription modalId={'modal' + movie?.id} movie={movie} type="recommendation" key={movie?.id} />
 		</>)
 }

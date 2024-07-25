@@ -9,6 +9,10 @@ class User(db.Model):
     password = db.Column(db.String(200), unique=False, nullable=False)
     username = db.Column(db.String(80), unique=True, nullable=False)
 
+    # Relation with MyList
+   
+    my_lists = db.relationship('MyList', back_populates='user', lazy=True)
+    
     def __repr__(self):
         return f'<User {self.email}>'
 
@@ -42,6 +46,10 @@ class Movie(db.Model):
     # Child
     movie_actors = db.relationship('MovieActor', back_populates='movie', lazy=True)
 
+    # Relation with MyList
+    
+    my_list = db.relationship('MyList', back_populates='movie', lazy=True )
+    
     # Relation with Comments
     comments = db.relationship('Comment', back_populates='movie', lazy=True)
 
@@ -60,6 +68,29 @@ class Movie(db.Model):
             "genres": list(map(lambda x: x.genre_serialize(), self.movie_genres)),
             "directors": list(map(lambda x: x.director_serialize(), self.movie_directors)),
             "actors": list(map(lambda x: x.actor_serialize(), self.movie_actors))
+        }
+    
+# My list info
+class MyList(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Relation with Movies
+  
+    movie_id = db.Column(db.Integer, db.ForeignKey('movie.id'), nullable=False)
+    movie = db.relationship('Movie', back_populates='my_list', lazy=True)
+    
+    # Relation with User
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='my_lists', lazy=True)
+
+    def __repr__(self):
+        return f'<MyList {self.id}'
+
+    def serialize(self):
+        return{
+            "id": self.id,
+            "movie": self.movie.serialize()
         }
 
 # Genres info

@@ -20,10 +20,9 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
     };
 
 
-
     return (
         <>
-            <div className="modal" id={modalId} tabIndex="-1">
+            <div className="modal" id={modalId} tabIndex="-1" aria-labelledby={`${modalId}`} >
                 <div className="modal-dialog modal-dialog-centered modal-lg">
                     <div className="modal-content text-light bg-dark">
                         <div className="modal-header">
@@ -54,7 +53,10 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                         <p>{movie?.description}</p>
                                         <h6>Elenco principal</h6>
                                         <div className="d-flex justify-content-between card__elenco">
-                                            {movie && movie?.actors?.slice(0, 3).map(actor => <img key={actor.id} data-key={actor.id} src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
+                                            {movie && movie?.actors?.slice(0, 3).map(actor => {
+                                                return <img key={actor?.actor_id} data-key={actor?.actor_id} src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />
+                                            })}
+
                                         </div>
                                         <h6 className="mt-2">Puntuacion</h6>
                                         <div className="card border-success mb-3 w-100">

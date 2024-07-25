@@ -3,7 +3,7 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import random
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import Comment, Genre, db, User, Movie
+from api.models import db, User, Movie,  MyList, Comment, Genre
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity
@@ -87,6 +87,7 @@ def get_user_data(id):
     return jsonify(user_data), 200
 
 
+
 @api.route('/movies', methods=['GET'])
 def get_movies():
     movies = Movie.query.all()
@@ -94,6 +95,47 @@ def get_movies():
         return jsonify({"Message": "No movies exists"}), 404
     serializing = list(map(lambda x: x.serialize(), movies))
     return jsonify(serializing), 200
+
+
+@api.route('/user/movielist', methods=['POST'])
+@jwt_required()
+def create_movie_list():
+    user_id = get_jwt_identity()
+    data = request.json
+
+    title = data.get('title')
+
+    if not title:
+        return jsonify({"message": "Title is required"}), 400
+
+    current_user = User.query.get(user_id)
+    if not current_user:
+        return jsonify({"message": "User not found"}), 404
+
+    new_movie = Movie.query.filter_by(title=title).first()
+    if not new_movie:
+        return jsonify({"message": "Movie not found"}), 404
+
+    new_movie_in_my_list = MyList(movie=new_movie, user=current_user)
+    
+    try:
+        db.session.add(new_movie_in_my_list)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"message": "Error saving movie"}), 500
+
+    return jsonify({"message": "Movie saved for later"}), 200
+
+
+@api.route('/user/movielist', methods=['GET'])
+@jwt_required()
+def get_movie_list():
+    user_id = get_jwt_identity()
+    movie_list = MyList.query.filter_by(user_id=user_id).all()
+    movies = list(map(lambda ml: ml.serialize(), movie_list))
+    return jsonify(movies), 200
 
 @api.route('/movies/<int:id>', methods=['GET'])
 def get_specific_movies(id):
