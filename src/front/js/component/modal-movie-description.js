@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
     const [movie, setMovie] = useState(inputMovie)
     const { store, actions } = useContext(Context);
+    const [selectedCategory, setSelectedCategory] = useState(0)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -18,7 +19,12 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
     }, [store.randomMovie])
 
     const clickGenerateRandomMovie = async () => {
-        const randMovie = await actions.getRandomMovie();
+        await actions.getRandomMovie(selectedCategory);
+    };
+
+    const handleCategorySelect = (genreId) => {
+        setSelectedCategory(genreId);
+        actions.getRandomMovie(genreId);
     };
 
 
@@ -40,10 +46,25 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                                 Categoria
                                             </button>
                                             <ul className="dropdown-menu">
-                                                <li><a className="dropdown-item" href="#">Animadas</a></li>
-                                                <li><a className="dropdown-item" href="#">Comedia</a></li>
-                                                <li><a className="dropdown-item" href="#">Drama</a></li>
-                                                <li><a className="dropdown-item" href="#">Terror</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(0)}>Todas las categorias</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(1)}>Animation</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(2)}>Family</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(3)}>Adventure</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(4)}>Comedy</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(5)}>Action</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(6)}>Crime</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(7)}>Thriller</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(8)}>Romance</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(9)}>Science Fiction</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(10)}>Fantasy</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(11)}>Drama</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(12)}>Horror</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(13)}>Mystery</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(14)}>War</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(15)}>TV Movie</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(16)}>Western</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(17)}>History</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(18)}>Music</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -72,7 +93,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                 </div>
                                 <div className="col-12">
                                     <div className="alert alert-warning text-center" role="alert">
-                                        Si deseas una búsqueda más personalizada, <span className="alert-link" data-bs-dismiss="modal" onClick={() => {
+                                        Si deseas una búsqueda más personalizada, <span style={{ cursor: "pointer" }} className="alert-link" data-bs-dismiss="modal" onClick={() => {
                                             navigate(`/SpecificInformation/${movie?.id}`)
                                         }}>click aquí. </span>
                                     </div>
