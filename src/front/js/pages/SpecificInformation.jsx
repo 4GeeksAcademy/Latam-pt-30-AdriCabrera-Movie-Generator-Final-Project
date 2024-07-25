@@ -84,11 +84,11 @@ export const SpecificInformation = () => {
                             </>
                         )}
                     </div>
+                    <h6><strong>Elenco</strong></h6>
                     <div className="people">
                         {specificMovie.actors && specificMovie.actors.length > 0 ? (
                             specificMovie.actors.slice(0, 5).map((actor, index) => (
                                 <div key={index}>
-                                    <h6><strong>Elenco</strong></h6>
                                     <p>{actor.name}</p>
                                 </div>
                             ))
