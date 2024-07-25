@@ -1,9 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 
-export const ModalMovieDescription = ({ modalId, type, movie}) => {
+export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
+    const [movie, setMovie] = useState(inputMovie)
+    const { store, actions } = useContext(Context);
+
+    useEffect(() => {
+
+        if (store.randomMovie) {
+            setMovie(store.randomMovie);
+        }
+    }, [store.randomMovie])
+
+    const clickGenerateRandomMovie = async () => {
+        const randMovie = await actions.getRandomMovie();
+    };
+
+
 
     return (
         <>
@@ -38,7 +54,7 @@ export const ModalMovieDescription = ({ modalId, type, movie}) => {
                                         <p>{movie?.description}</p>
                                         <h6>Elenco principal</h6>
                                         <div className="d-flex justify-content-between card__elenco">
-                                            {movie && movie?.actors?.slice(0, 3).map(actor => <img src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
+                                            {movie && movie?.actors?.slice(0, 3).map(actor => <img key={actor.id} data-key={actor.id} src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />)}
                                         </div>
                                         <h6 className="mt-2">Puntuacion</h6>
                                         <div className="card border-success mb-3 w-100">
@@ -57,7 +73,7 @@ export const ModalMovieDescription = ({ modalId, type, movie}) => {
                                 </div>
                             </nav>
                             {type == "random" && <div className="d-grid">
-                                <button type="button" className="btn btn-outline-success fs-4">Generar otra película aleatoria 🎲</button>
+                                <button type="button" className="btn btn-outline-success fs-4" onClick={clickGenerateRandomMovie}>Generar otra película aleatoria 🎲</button>
                             </div>}
 
                         </div>

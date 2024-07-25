@@ -19,7 +19,7 @@ export const Home = () => {
 								Con MovieMate encuentra la película perfecta según tus preferencias personales.
 							</h1>
 							<div className="mt-5">
-								<button type="button" className="btn btn-outline-success data" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+								<button type="button" className="btn btn-outline-success data" onClick={() => actions.getRandomMovie()} data-bs-toggle="modal" data-bs-target="#exampleModal" >
 									<h4>Generar pelicula aleatoria</h4>
 								</button>
 
@@ -29,7 +29,7 @@ export const Home = () => {
 				</div>
 			</div>
 
-			<ModalMovieDescription modalId="exampleModal" type="random" />
+			<ModalMovieDescription modalId="exampleModal" type="random" movie={store.randomMovie} />
 
 			<div className="container">
 				<div className="col mt-5">
