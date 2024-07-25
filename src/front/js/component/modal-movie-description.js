@@ -2,11 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 
 export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
     const [movie, setMovie] = useState(inputMovie)
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate()
 
     useEffect(() => {
 
@@ -70,7 +72,9 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                 </div>
                                 <div className="col-12">
                                     <div className="alert alert-warning text-center" role="alert">
-                                        Si deseas una búsqueda más personalizada, <Link to="/SpecificInformation" className="alert-link">click aquí.</Link>
+                                        Si deseas una búsqueda más personalizada, <span className="alert-link" data-bs-dismiss="modal" onClick={() => {
+                                            navigate(`/SpecificInformation/${movie?.id}`)
+                                        }}>click aquí. </span>
                                     </div>
                                 </div>
                             </nav>
