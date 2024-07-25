@@ -30,9 +30,6 @@ export const Navbar = () => {
 						<li className="nav-item">
 							<Link to={"/recomended"} className="nav-link" href="#">Recomendaciones</Link>
 						</li>
-						<li className="nav-item">
-							<Link to={"/commentsP"} className="nav-link" href="#">Comentario</Link>
-						</li>
 					</ul>
 					<form className="d-flex" role="search">
 						{store.token ? (
