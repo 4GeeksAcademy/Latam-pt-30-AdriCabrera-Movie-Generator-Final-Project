@@ -151,11 +151,15 @@ def get_popular_movies():
         return jsonify({"Message": "Nothing to see here"}), 404
     serialized_movies = [movie.serialize() for movie in popular_movies]
     return jsonify(serialized_movies), 200
+
 @api.route('/comments/<int:movie_id>', methods=['GET'])
 def get_movie_comments(movie_id):
-    movie = Movie.query.get(movie_id)
+    page = int(request.args['page'])
+    per_page = int(request.args['per_page'])
+    comments = Comment.query.filter_by(movie_id=movie_id).order_by(Comment.create_at.desc()).paginate(page=page, per_page=per_page,error_out=False)
 
-    serializing = [x.serialize() for x in movie.comments]
+    serializing = [x.serialize() for x in comments]
+
     return jsonify(serializing), 200
 
 @api.route('/comments/<int:movie_id>', methods=['POST'])
@@ -171,6 +175,25 @@ def post_movie_comments(movie_id):
 
     serializing = { 'msg': 'comment created'}
     return jsonify(serializing), 201
+
+@api.route('/comments/<int:movie_id>', methods=['PUT'])
+@jwt_required()
+def update_movie_comment(movie_id):
+    comment = Comment.query.get(movie_id)
+    comment.content = request.json['content']
+    db.session.commit()
+
+    serializing = { 'msg': 'comment modified'}
+    return jsonify(serializing), 200
+
+@api.route('/comments/<int:comment_id>', methods=['DELETE'])
+@jwt_required()
+def delete_comment(comment_id):
+    comment = Comment.query.get(comment_id)
+    db.session.delete(comment)
+    db.session.commit()
+
+    return jsonify({'msg':'Comment deleted'}), 200
 
 @api.route('movies/random/<int:genre_id>', methods=['GET'])
 def get_random_movie(genre_id):

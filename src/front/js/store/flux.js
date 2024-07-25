@@ -141,7 +141,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 			logout: async () => {
-				sessionStorage.removeItem("token")
+				sessionStorage.removeItem("token");
+				sessionStorage.removeItem("user");
 				setStore({ ...getStore(), token: null, user: null })
 			},
 			getPopularMovies: async () => {
@@ -159,9 +160,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Something is wrong", error)
 				}
 			},
-			getMovieComments: async (movie_id) => {
+			getMovieComments: async (movie_id, page = 1, per_page = 3) => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id)
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id + '?page=' + page + '&per_page=' + per_page)
 
 					if (response.status !== 200) {
 						console.log("Error! No movies", response.status)
@@ -198,6 +199,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log("Error!", error)
 					return false;
+				}
+			},
+			updateMovieComment: async (commentId, content) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + commentId,
+						{
+							method: "PUT",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": "Bearer " + sessionStorage.getItem('token')
+							},
+							body: JSON.stringify({ content })
+						})
+					if (!response.status) {
+						console.log("Error updating comment", response.status)
+						return false
+					}
+
+					const data = await response.json()
+					return true
+
+				} catch (error) {
+					console.log("Error!", error)
+					return false;
+				}
+			},
+			deleteMovieComment: async (comment_id) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + comment_id, {
+						method: "DELETE", headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + sessionStorage.getItem('token')
+						},
+					})
+
+					if (response.status !== 200) {
+						console.log("Error! No movies", response.status)
+						return;
+					}
+
+					const data = await response.json()
+					const store = getStore();
+
+					setStore({ ...store, movieComments: store.movieComments.filter(x => x.id !== comment_id) })
+
+
+				} catch (error) {
+					console.log("Error!", error)
 				}
 			},
 			getRandomMovie: async (genreId = 0) => {
