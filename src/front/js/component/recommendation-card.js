@@ -10,7 +10,7 @@ export const RecommendationCard = ({ movie }) => {
 
 	return (
 		<>
-			<div className="card" style={{ width: "18rem", height: "100%" }}>
+			<div className="card card__movie" style={{ width: "18rem", height: "100%" }}>
 				<img src={movie?.img_url} className="card-img-top" alt="..." />
 				<div className="card-body">
 					<h4>{movie?.title}</h4>
@@ -25,6 +25,6 @@ export const RecommendationCard = ({ movie }) => {
 					<p className="mt-2 fs-6 text-success">{movie?.rating}</p>
 				</div>
 			</div>
-			<ModalMovieDescription modalId={modalId} type="recommendation" />
+			<ModalMovieDescription modalId={modalId} movie={movie} type="recommendation" />
 		</>)
 }

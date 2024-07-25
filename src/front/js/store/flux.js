@@ -6,7 +6,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			movies: [],
 			specificMovie: null,
 			popularMovies: [],
+			movieComments: [],
 			message: null,
+			randomMovie: null,
 			demo: [
 				{
 					title: "FIRST",
@@ -51,6 +53,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
+			setToken: () => {
+				const token = sessionStorage.getItem('token')
+				const user = JSON.parse(sessionStorage.getItem('user'))
+				setStore({ ...getStore(), user: user, token: token })
+			},
 			login: async (emailOrUsername, password) => {
 				try {
 					const response = await fetch(process.env.BACKEND_URL + "/api/login/",
@@ -69,6 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json()
 					sessionStorage.setItem("token", data.token)
+					sessionStorage.setItem("user", JSON.stringify(data.user))
 					setStore({ ...getStore(), token: data.token, user: data.user })
 					return true
 
@@ -109,6 +117,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					if (response.status !== 200) {
 						console.log("Error! No movies", response.status)
+						return;
 					}
 
 					const data = await response.json()
@@ -148,6 +157,66 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.log("Something is wrong", error)
+				}
+			},
+			getMovieComments: async (movie_id) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id)
+
+					if (response.status !== 200) {
+						console.log("Error! No movies", response.status)
+						return;
+					}
+
+					const data = await response.json()
+					console.log("This is the data", data)
+					setStore({ ...getStore(), movieComments: data })
+
+				} catch (error) {
+					console.log("Error!", error)
+				}
+			},
+			createMovieComment: async (movie_id, content) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/comments/" + movie_id,
+						{
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json",
+								"Authorization": "Bearer " + sessionStorage.getItem('token')
+							},
+							body: JSON.stringify({ content })
+						})
+					if (!response.status) {
+						console.log("Error creating user", response.status)
+						return false
+					}
+
+					const data = await response.json()
+					return true
+
+				} catch (error) {
+					console.log("Error!", error)
+					return false;
+				}
+			},
+			getRandomMovie: async (genreId = 0) => {
+				setStore({ ...getStore(), randomMovie: null })
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/movies/random/" + genreId)
+
+					if (response.status !== 200) {
+						console.log("Error! No movies", response.status)
+						return;
+					}
+
+					const data = await response.json()
+					console.log("This is the random movie", data)
+					setStore({ ...getStore(), randomMovie: data })
+
+
+				} catch (error) {
+					console.log("Error!", error)
 				}
 			}
 		}

@@ -1,8 +1,9 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import random
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Movie,  MyList
+from api.models import db, User, Movie,  MyList, Comment, Genre
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity
@@ -150,3 +151,41 @@ def get_popular_movies():
         return jsonify({"Message": "Nothing to see here"}), 404
     serialized_movies = [movie.serialize() for movie in popular_movies]
     return jsonify(serialized_movies), 200
+@api.route('/comments/<int:movie_id>', methods=['GET'])
+def get_movie_comments(movie_id):
+    movie = Movie.query.get(movie_id)
+
+    serializing = [x.serialize() for x in movie.comments]
+    return jsonify(serializing), 200
+
+@api.route('/comments/<int:movie_id>', methods=['POST'])
+@jwt_required()
+def post_movie_comments(movie_id):
+    comment = Comment()
+    comment.user_id = get_jwt_identity()
+    comment.movie_id = movie_id
+    comment.content = request.json['content']
+
+    db.session.add(comment)
+    db.session.commit()
+
+    serializing = { 'msg': 'comment created'}
+    return jsonify(serializing), 201
+
+@api.route('movies/random/<int:genre_id>', methods=['GET'])
+def get_random_movie(genre_id):
+    all_movies = None
+
+    if genre_id > 0:
+        rand_movie_by_genre = Genre.query.filter_by(id=genre_id).one_or_none()
+
+        if rand_movie_by_genre.movie_genres is None:
+            return jsonify({'msg': 'no movies found for selected genre'}), 404
+        
+        all_movies = [x.movie for x in rand_movie_by_genre.movie_genres] 
+    else:
+        all_movies = Movie.query.all()
+
+
+    rand_movie = random.choice(all_movies)
+    return jsonify(rand_movie.serialize()), 200

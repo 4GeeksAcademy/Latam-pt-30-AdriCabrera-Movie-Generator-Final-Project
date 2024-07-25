@@ -2,7 +2,7 @@ body{
    background: black;
 }
 .background-container{
-    background-image: url("https://d500.epimg.net/cincodias/imagenes/2020/12/31/lifestyle/1609408585_467254_1609408795_noticia_normal.jpg");
+    background-image: url("https://wallpaperaccess.com/full/4839516.jpg");
     width: 100%;
     height: 80vh;
     background-repeat: no-repeat;
@@ -16,7 +16,7 @@ body{
     height: 80vh;
     z-index: 1;
 }
-.card{
+.card__movie{
     width: 250px;
     background: #141414;
     border-radius: 4px;
