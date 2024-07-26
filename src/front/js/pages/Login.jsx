@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import "../../styles/login.css";
+
 
 export const Login = () => {
     const navigate = useNavigate()
@@ -21,7 +23,7 @@ export const Login = () => {
     }
 
     return (
-        <div className="d-flex justify-content-center vw-100 p-3 m-3">
+        <div className="d-flex justify-content-center vw-100 p-3 m-3" id="loginparallax" >
             <div className="login-container">
                 <div className="text-success text-center p-3">
                     <h3>Inicia sesión</h3>
