@@ -20,8 +20,8 @@ export const Signin = () => {
         if (newUser) {
             Swal.fire({
                 title: "Cuenta creada!",
-                text: "Disfruta de proxima peli con MovieMate",
-                icon: "Éxito"
+                text: "Disfruta de tu proxima peli con MovieMate",
+                icon: "success"
             }).then(() => {
                 navigate("/login");
             });

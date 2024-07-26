@@ -4,6 +4,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			token: null,
 			user: null,
 			movies: [],
+			// For Movie pages
+			currentPage: 1,
+			pageSize: 15,
+			// 
 			specificMovie: null,
 			popularMovies: [],
 			movieComments: [],
@@ -111,22 +115,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log("Error!", error)
 				}
 			},
-			getMovies: async () => {
+			getMovies: async (page = 1, pageSize = 15) => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/movies")
+					const offset = (page - 1) * pageSize;
+					const response = await fetch(`${process.env.BACKEND_URL}/api/movies?limit=${pageSize}&offset=${offset}`);
 
 					if (response.status !== 200) {
-						console.log("Error! No movies", response.status)
+						console.log("Error! No movies", response.status);
 						return;
 					}
 
-					const data = await response.json()
-					console.log("This is the data", data)
-					setStore({ movies: data })
+					const data = await response.json();
+					setStore({ movies: data, currentPage: page });
 
 				} catch (error) {
-					console.log("Error!", error)
+					console.log("Error!", error);
 				}
+
 			},
 			getMovie: async (id) => {
 				try {

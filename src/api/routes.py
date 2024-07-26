@@ -90,11 +90,18 @@ def get_user_data(id):
 
 @api.route('/movies', methods=['GET'])
 def get_movies():
-    movies = Movie.query.all()
-    if len(movies) <1:
-        return jsonify({"Message": "No movies exists"}), 404
-    serializing = list(map(lambda x: x.serialize(), movies))
-    return jsonify(serializing), 200
+   # Get limit and offset from query parameters
+    limit = request.args.get('limit', default=16, type=int)
+    offset = request.args.get('offset', default=0, type=int)
+    
+    # Fetch movies with pagination
+    movies = Movie.query.offset(offset).limit(limit).all()
+    
+    if not movies:
+        return jsonify({"Message": "No movies exist"}), 404
+
+    serialized_movies = [movie.serialize() for movie in movies]
+    return jsonify(serialized_movies), 200
 
 
 @api.route('/user/movielist', methods=['POST'])
