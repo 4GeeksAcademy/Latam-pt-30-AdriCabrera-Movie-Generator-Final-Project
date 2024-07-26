@@ -14,9 +14,7 @@ export const Signin = () => {
 
     const handlesubmit = async (event) => {
         event.preventDefault();
-        const newUser = await actions.signin(username, email, password)
 
-        //
         if (!username || !email || !password) {
             Swal.fire({
                 icon: "error",
@@ -26,22 +24,24 @@ export const Signin = () => {
             return;
         }
 
-        if (newUser.succes) {
-            Swal.fire({
-                title: "Cuenta creada!",
-                text: "Disfruta de tu proxima peli con MovieMate",
-                icon: "success"
-            }).then(() => {
-                navigate("/login");
-            });
-        } else {
+        const newUser = await actions.signin(username, email, password);
+
+        if (!newUser) {
             Swal.fire({
                 icon: "error",
                 title: "Oops...",
-                text: "Credenciales invalidas, el usuario o el email ya está en uso"
+                text: "Credenciales inválidas, el usuario o el email ya está en uso.",
+            });
+        } else {
+            Swal.fire({
+                title: "Cuenta creada!",
+                text: "Disfruta de tu próxima peli con MovieMate.",
+                icon: "success",
+            }).then(() => {
+                navigate("/login");
             });
         }
-    }
+    };
 
     return (
         <div className="d-flex justify-content-center vw-100 p-3 m-3" id="signinparallax" >
