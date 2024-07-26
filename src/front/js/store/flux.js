@@ -9,6 +9,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			movieComments: [],
 			message: null,
 			randomMovie: null,
+			movielist: [],
 			demo: [
 				{
 					title: "FIRST",
@@ -266,6 +267,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 					console.log("Error!", error)
+				}
+			},
+
+			createMovieList: async (title) => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/user/movielist/", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + sessionStorage.getItem('token')
+						},
+						body: JSON.stringify({ title })
+					})
+
+					if (!response.status) {
+						console.log("Error creating list", response.status)
+						return false
+					}
+					const data = await response.json()
+					console.log("This is the list", data)
+					return true
+
+				} catch (error) {
+					console.log(error)
+					return false
+				}
+			},
+
+			getMovieList: async () => {
+				try {
+					const response = await fetch(process.env.BACKEND_URL + "/api/user/movielist/", {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + sessionStorage.getItem('token')
+						},
+					})
+					if (!response.status) {
+						console.log("Error getting list", response.status)
+						return false
+					}
+
+					const data = await response.json()
+					console.log("This is the movielist data", data)
+					setStore({ movielist: data })
+
+				} catch (error) {
+					console.log(error)
 				}
 			}
 		}
