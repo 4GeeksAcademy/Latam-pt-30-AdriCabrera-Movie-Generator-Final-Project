@@ -8,6 +8,21 @@ export const RecommendationCard = ({ movie }) => {
 	const { actions, store } = useContext(Context)
 
 	const navigate = useNavigate()
+
+	const handleAddMovieToList = async () => {
+		if (store.user) {
+			const addMovie = await actions.createMovieList(movie.title)
+			if (addMovie) {
+				console.log("Movie added to list")
+				await actions.getMovieList()
+			} else {
+				console.error("Failed to add movie")
+			}
+		} else {
+			console.log("User not logged in");
+		}
+	}
+
 	return (
 		<>
 			<div className="card card__movie" style={{ width: "18rem", height: "100%" }}>
@@ -17,7 +32,12 @@ export const RecommendationCard = ({ movie }) => {
 					<div className="d-flex justify-content-between">
 						{
 							store.user &&
-							<button type="button" className="btn btn-outline-success"><i className="icon fa-solid fa-circle-plus"></i></button>
+							<button type="button"
+								className="btn btn-outline-success"
+								onClick={handleAddMovieToList}
+							>
+								<i className="icon fa-solid fa-circle-plus"></i>
+							</button>
 						}
 
 						<button type="button" className="btn btn-outline-success"
