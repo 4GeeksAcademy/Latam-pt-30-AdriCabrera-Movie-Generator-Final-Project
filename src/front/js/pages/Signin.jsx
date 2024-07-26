@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "../../styles/signin.css";
+import Swal from 'sweetalert2'
 
 export const Signin = () => {
     const navigate = useNavigate();
@@ -14,15 +16,22 @@ export const Signin = () => {
         event.preventDefault();
         const newUser = await actions.signin(username, email, password)
 
+        //     
         if (newUser) {
-            navigate("/login")
+            Swal.fire({
+                title: "Cuenta creada!",
+                text: "Disfruta de proxima peli con MovieMate",
+                icon: "Éxito"
+            }).then(() => {
+                navigate("/login");
+            });
         } else {
-            console.log("Error!")
+            console.log("Error!");
         }
     }
 
     return (
-        <div className="d-flex justify-content-center vw-100 p-3 m-3">
+        <div className="d-flex justify-content-center vw-100 p-3 m-3" id="signinparallax" >
             <div className="signin-container">
                 <div className="text-success text-center p-3">
                     <h3>Formulario de registro</h3>

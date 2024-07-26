@@ -1,0 +1,12 @@
+#loginparallax {
+    /* The image used */
+    background-image: url("https://images5.alphacoders.com/135/1358619.jpeg");
+    /* Set a specific height */
+    min-height: 500px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
