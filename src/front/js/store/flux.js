@@ -310,11 +310,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await response.json()
-					console.log("This is the movielist data", data)
+					console.log("This is the movielist", data)
 					setStore({ movielist: data })
 
 				} catch (error) {
 					console.log(error)
+				}
+			},
+
+			deleteMovieFromList: async (movieId) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/movielist/${movieId}`, {
+						method: "DELETE",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + sessionStorage.getItem('token')
+						}
+					});
+
+					if (response.status !== 200) {
+						console.log("Error removing movie", response.status)
+						return false
+					}
+
+					const data = await response.json()
+					console.log("Movie removed from list", data)
+					return true
+
+				} catch (error) {
+					console.log(error)
+					return false
 				}
 			}
 		}

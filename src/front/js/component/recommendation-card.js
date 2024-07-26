@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import { ModalMovieDescription } from "./modal-movie-description";
 import { Context } from "../store/appContext";
@@ -6,20 +6,30 @@ import { useNavigate } from "react-router-dom";
 
 export const RecommendationCard = ({ movie }) => {
 	const { actions, store } = useContext(Context)
-
+	const [alertMessage, setAlertMessage] = useState(null)
 	const navigate = useNavigate()
 
-	const handleAddMovieToList = async () => {
+	const isMovieInList = (movieId) => {
+		return store.movielist.some(item => item.movie.id === movieId);
+	}
+
+	const handleAddOrRemoveMovie = async () => {
 		if (store.user) {
-			const addMovie = await actions.createMovieList(movie.title)
-			if (addMovie) {
-				console.log("Movie added to list")
-				await actions.getMovieList()
+			let success;
+			if (isMovieInList(movie.id)) {
+				success = await actions.deleteMovieFromList(movie.id);
+				setAlertMessage(success ? "Se eliminó la película de tu lista" : "Ups! Hubo un error eliminando película");
 			} else {
-				console.error("Failed to add movie")
+				success = await actions.createMovieList(movie.title);
+				setAlertMessage(success ? "Se agregó la película a tu lista!" : "Ups! Hubo un error agregando película");
 			}
+			if (success) {
+				await actions.getMovieList()
+			}
+
+			setTimeout(() => setAlertMessage(null), 2000)
 		} else {
-			console.log("User not logged in");
+			console.log("User not logged in")
 		}
 	}
 
@@ -33,10 +43,10 @@ export const RecommendationCard = ({ movie }) => {
 						{
 							store.user &&
 							<button type="button"
-								className="btn btn-outline-success"
-								onClick={handleAddMovieToList}
+								className={`btn ${isMovieInList(movie.id) ? "btn-danger" : "btn-outline-success"}`}
+								onClick={handleAddOrRemoveMovie}
 							>
-								<i className="icon fa-solid fa-circle-plus"></i>
+								<i className={`icon fa-solid ${isMovieInList(movie.id) ? "fa-circle-minus" : "fa-circle-plus"}`}></i>
 							</button>
 						}
 
@@ -48,7 +58,12 @@ export const RecommendationCard = ({ movie }) => {
 					</div>
 					<p className="mt-2 fs-6 text-success">{movie?.rating}</p>
 				</div>
+				{alertMessage && (
+					<div className="alert alert-info alert-dismissible fade show" role="alert">
+						{alertMessage}
+						<button type="button" className="btn-close" onClick={() => setAlertMessage(null)} aria-label="Close"></button>
+					</div>
+				)}
 			</div>
-			<ModalMovieDescription modalId={'modal' + movie?.id} movie={movie} type="recommendation" key={movie?.id} />
 		</>)
 }

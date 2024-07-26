@@ -137,6 +137,27 @@ def get_movie_list():
     movies = list(map(lambda ml: ml.serialize(), movie_list))
     return jsonify(movies), 200
 
+@api.route('/user/movielist/<int:movie_id>', methods=['DELETE'])
+@jwt_required()
+def remove_movie_from_list(movie_id):
+    user_id = get_jwt_identity()
+    
+    movie_in_list = MyList.query.filter_by(movie_id=movie_id, user_id=user_id).first()
+    
+    if not movie_in_list:
+        return jsonify({"message": "Movie not found in your list"}), 404
+
+    try:
+        db.session.delete(movie_in_list)
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+        return jsonify({"message": "Error removing movie"}), 500
+
+    return jsonify({"message": "Movie removed from list"}), 200
+
+
 @api.route('/movies/<int:id>', methods=['GET'])
 def get_specific_movies(id):
     movie = Movie.query.get(id)
