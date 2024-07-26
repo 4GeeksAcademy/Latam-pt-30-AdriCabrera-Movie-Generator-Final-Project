@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/login.css";
+import Swal from 'sweetalert2'
 
 
 export const Login = () => {
@@ -15,12 +16,32 @@ export const Login = () => {
     const handlesubmit = async (event) => {
         event.preventDefault(); // Evita que el formulario se envíe normalmente
         const success = await actions.login(emailOrUsername, password)
-        if (success) {
-            navigate("/")
-        } else {
-            console.log("Error al inicar sesion")
+
+        if (!emailOrUsername || !password) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Todos los campos son obligatorios.",
+            });
+            return;
         }
-    }
+
+        if (success) {
+            Swal.fire({
+                title: "Inicio de sesión exitoso!",
+                text: "Bienvenido a MovieMate",
+                icon: "success"
+            }).then(() => {
+                navigate("/");
+            });
+        } else {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Credenciales incorrectas. Por favor, verifica tu correo electrónico/nombre de usuario y contraseña."
+            });
+        }
+    };
 
     return (
         <div className="d-flex justify-content-center vw-100 p-3 m-3" id="loginparallax" >

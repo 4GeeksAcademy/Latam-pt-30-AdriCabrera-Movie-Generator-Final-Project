@@ -16,8 +16,17 @@ export const Signin = () => {
         event.preventDefault();
         const newUser = await actions.signin(username, email, password)
 
-        //     
-        if (newUser) {
+        //
+        if (!username || !email || !password) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Todos los campos son obligatorios.",
+            });
+            return;
+        }
+
+        if (newUser.succes) {
             Swal.fire({
                 title: "Cuenta creada!",
                 text: "Disfruta de tu proxima peli con MovieMate",
@@ -26,7 +35,11 @@ export const Signin = () => {
                 navigate("/login");
             });
         } else {
-            console.log("Error!");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Credenciales invalidas, el usuario o el email ya está en uso"
+            });
         }
     }
 
