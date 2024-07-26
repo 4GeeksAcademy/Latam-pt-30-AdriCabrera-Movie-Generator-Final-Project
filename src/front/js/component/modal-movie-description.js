@@ -85,7 +85,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                         <div className="card border-success mb-3 w-100">
                                             <div className="card-header text-dark fs-6 text"> {movie?.rating}</div>
                                             <div className="card-body text-success">
-                                                <p className="card-text">Director:  {movie && movie.directors && movie.directors.length > 0 && movie.directors[0].name}</p>
+                                                <p className="card-text">Director:  {movie && movie.directors && movie.directors.length > 0 ? movie.directors[0].name : "No hay información sobre el director disponible."}</p>
                                                 <p className="card-text">Categoria: {movie?.genres[0].genre_name} </p>
                                             </div>
                                         </div>
