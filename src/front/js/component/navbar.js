@@ -27,9 +27,6 @@ export const Navbar = () => {
 							</li>
 
 						}
-						<li className="nav-item">
-							<Link to={"/recomended"} className="nav-link" href="#">Recomendaciones</Link>
-						</li>
 					</ul>
 					<form className="d-flex" role="search">
 						{store.token ? (
