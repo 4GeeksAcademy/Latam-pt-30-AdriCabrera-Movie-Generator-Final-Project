@@ -15,7 +15,7 @@ export const Mylist = () => {
                 store.movielist && store.movielist.length > 0 ? (
                     <div className="container row row-cols-1 row-cols-md-4 g-4">
                         {store.movielist.map((movielist) => (
-                            <div style={{ maxWidth: "21rem" }} key={movielist.id} className="card mb-3">
+                            <div style={{ maxWidth: "21rem" }} key={movielist.id} className="card card__movie mb-3 text-light">
                                 <img className="card-img-top" src={movielist?.movie.img_url} alt={movielist?.movie.title} />
                                 <div className="card-body">
                                     <h5 className="card-title">{movielist?.movie.title}</h5>
