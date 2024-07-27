@@ -104,7 +104,7 @@ export const SpecificInformation = () => {
                 </div>
             </div>
             <div className="commentsSpecificInformation">
-                <h3><strong>Comentarios</strong></h3>
+                <h3 className="text-center m-5"><strong>Comentarios</strong></h3>
                 <CommentList movieId={id} />
             </div>
         </React.Fragment>
