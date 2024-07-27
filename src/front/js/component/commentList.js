@@ -31,19 +31,22 @@ export const CommentList = ({ movieId }) => {
     return (
         <>
             <div className="container">
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Agrega un comentario" aria-label="Agrega un comentario" aria-describedby="button-addon2" />
-                    <button className="btn btn-outline-secondary" onClick={createComment} type="button" id="button-addon2">Comentar</button>
-                </div>
-                {
-                    store.movieComments
-                        .map(c => <Comment key={c.id} comment={c} />)
-                }
-                <div>
-                    <button className="btn btn-outline-secondary" onClick={previousPage} type="button" id="button-addon2">anterior</button>
-                    <span className="text-white">{pagination.page}</span>
-                    <button className="btn btn-outline-secondary" onClick={nextPage} type="button" id="button-addon2">siguiente</button>
-
+                <div className="row justify-content-center">
+                    <div className="col-5">
+                        <div className="input-group mb-3">
+                            <input type="text" className="form-control" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Agrega un comentario" aria-label="Agrega un comentario" aria-describedby="button-addon2" />
+                            <button className="btn btn-outline-success" onClick={createComment} type="button" id="button-addon2">Comentar</button>
+                        </div>
+                        {
+                            store.movieComments
+                                .map(c => <Comment key={c.id} comment={c} />)
+                        }
+                        <div className="d-flex justify-content-end">
+                            <button className="btn btn-outline-success" onClick={previousPage} type="button" id="button-addon2">anterior</button>
+                            <span className="text-white">{pagination.page}</span>
+                            <button className="btn btn-outline-success" onClick={nextPage} type="button" id="button-addon2">siguiente</button>
+                        </div>
+                    </div>
                 </div>
 
             </div>

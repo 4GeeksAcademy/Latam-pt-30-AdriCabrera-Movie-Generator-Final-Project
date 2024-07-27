@@ -91,29 +91,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			signin: async (username, email, password) => {
 				try {
-					const response = await fetch(process.env.BACKEND_URL + "/api/signin/",
-						{
-							method: "POST",
-							headers: {
-								"Content-Type": "application/json"
-							},
-							body: JSON.stringify({
-								username: username,
-								email: email,
-								password: password
-							})
-						})
-					if (!response.status) {
-						console.log("Error creating user", response.status)
-						return false
+					const response = await fetch(process.env.BACKEND_URL + "/api/signin/", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+						},
+						body: JSON.stringify({
+							username: username,
+							email: email,
+							password: password,
+						}),
+					});
+			
+					if (!response.ok) {
+						console.log("Error creating user", response.status);
+						return false;
 					}
-
-					const data = await response.json()
-					setStore({ user: data.user })
-					return true
-
+			
+					const data = await response.json();
+					setStore({ user: data.user });
+					return true;
+			
 				} catch (error) {
-					console.log("Error!", error)
+					console.log("Error!", error);
+					return false;
 				}
 			},
 			getMovies: async (page = 1, pageSize = 15) => {
