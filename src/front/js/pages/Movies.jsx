@@ -14,7 +14,7 @@ export const Movies = () => {
     const handlePageChange = (page) => {
         actions.getMovies(page, store.pageSize);
         window.scrollTo({
-            top: 0,
+            top: 1,
             behavior: 'smooth' // This will create a smooth scroll effect
         });
     };

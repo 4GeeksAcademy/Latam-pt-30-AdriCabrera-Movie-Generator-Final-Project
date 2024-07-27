@@ -26,9 +26,9 @@ body{
     position: relative;
 }
 
-.card:hover{
+/* .card:hover{
   /*- transform: scale(1.4);*/
-}
+
 .icon{
     color: white;
     font-size: 1.5rem;

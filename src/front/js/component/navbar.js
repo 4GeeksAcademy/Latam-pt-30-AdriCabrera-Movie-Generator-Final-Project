@@ -20,13 +20,12 @@ export const Navbar = () => {
 						<li className="nav-item">
 							<Link to={"/movies"} className="nav-link" href="#">Peliculas</Link>
 						</li>
-						{
-							store.user &&
-							<li className="nav-item">
-								<Link to={"/mylist"} className="nav-link" href="#">Mi lista</Link>
-							</li>
 
-						}
+						<li className="nav-item">
+							<Link to={"/mylist"} className="nav-link" href="#">Mi lista</Link>
+						</li>
+
+
 					</ul>
 					<form className="d-flex" role="search">
 						{store.token ? (
