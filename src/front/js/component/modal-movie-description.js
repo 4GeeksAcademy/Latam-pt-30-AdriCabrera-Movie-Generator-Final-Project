@@ -79,7 +79,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                         <h6>Elenco principal</h6>
                                         <div className="d-flex justify-content-between card__elenco">
                                             {movie && movie?.actors?.slice(0, 3).map(actor => {
-                                                return <img key={actor?.actor_id} data-key={actor?.actor_id} src={rigoImageUrl} className="img-thumbnail" alt={actor.name} title={actor.name} />
+                                                return <p key={actor?.actor_id} data-key={actor?.actor_id}>{actor.name}</p>
                                             })}
 
                                         </div>
