@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
-import { ModalMovieDescription } from "./modal-movie-description";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
