@@ -5,11 +5,9 @@ import { Context } from "../store/appContext";
 export const Mylist = () => {
     const { store, actions } = useContext(Context);
 
-    // useEffect(() => {
-
-    //     actions.getMovieList();
-
-    // }, []);
+    useEffect(() => {
+        actions.getMovieList()
+    }, [])
 
     return (
         <div className="d-flex flex-wrap justify-content-center vw-100 p-3 m-3 gap-2 parallax-mylist">
