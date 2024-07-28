@@ -184,11 +184,13 @@ def get_popular_movies():
 def get_movie_comments(movie_id):
     page = int(request.args['page'])
     per_page = int(request.args['per_page'])
+    comments_count = Comment.query.filter_by(movie_id=movie_id).order_by(Comment.create_at.desc()).count()
+    print("comments" + str(comments_count))
     comments = Comment.query.filter_by(movie_id=movie_id).order_by(Comment.create_at.desc()).paginate(page=page, per_page=per_page,error_out=False)
 
     serializing = [x.serialize() for x in comments]
 
-    return jsonify(serializing), 200
+    return jsonify({ "total":comments_count, "results": serializing }), 200
 
 @api.route('/comments/<int:movie_id>', methods=['POST'])
 @jwt_required()

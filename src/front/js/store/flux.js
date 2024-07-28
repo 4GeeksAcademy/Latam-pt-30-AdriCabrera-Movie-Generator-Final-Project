@@ -11,6 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			specificMovie: null,
 			popularMovies: [],
 			movieComments: [],
+			movieTotalComments: 0,
 			message: null,
 			randomMovie: null,
 			movielist: [],
@@ -102,16 +103,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 							password: password,
 						}),
 					});
-			
+
 					if (!response.ok) {
 						console.log("Error creating user", response.status);
 						return false;
 					}
-			
+
 					const data = await response.json();
 					setStore({ user: data.user });
 					return true;
-			
+
 				} catch (error) {
 					console.log("Error!", error);
 					return false;
@@ -177,8 +178,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 
 					const data = await response.json()
-					console.log("This is the data", data)
-					setStore({ ...getStore(), movieComments: data })
+
+					setStore({ ...getStore(), movieComments: data.results, movieTotalComments: data.total })
 
 				} catch (error) {
 					console.log("Error!", error)
@@ -249,7 +250,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json()
 					const store = getStore();
 
-					setStore({ ...store, movieComments: store.movieComments.filter(x => x.id !== comment_id) })
+					setStore({ ...store, movieComments: store.movieComments.filter(x => x.id !== comment_id), movieTotalComments: store.movieTotalComments - 1 })
 
 
 				} catch (error) {
