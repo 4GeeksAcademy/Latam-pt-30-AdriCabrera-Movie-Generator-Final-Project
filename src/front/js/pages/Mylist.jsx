@@ -28,7 +28,7 @@ export const Mylist = () => {
                                     <h5 className="card-title">{movielist?.movie.title}</h5>
                                     <div className="mt-auto">
                                         <button
-                                            className="btn btn-danger"
+                                            className="btn btn-outline-danger"
                                             onClick={() => handleRemoveMovie(movielist.movie.id)}
                                         >
                                             Quitar de la lista
