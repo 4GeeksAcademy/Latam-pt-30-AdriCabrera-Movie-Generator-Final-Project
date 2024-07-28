@@ -38,15 +38,15 @@ export const Comment = ({ comment }) => {
             <div className="card mb-3" style={{ maxWidth: "540px" }}>
                 <div className="row g-0">
                     <div className="col-md-3 d-flex ">
-                        <img src= "https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg" className="img-fluid  rounded-circle" alt="..." />
+                        <img src="https://static.vecteezy.com/system/resources/previews/018/765/757/original/user-profile-icon-in-flat-style-member-avatar-illustration-on-isolated-background-human-permission-sign-business-concept-vector.jpg" className="img-fluid  rounded-circle" alt="..." />
                     </div>
                     <div className="col-md-9">
                         <div className="card-body">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h5 className="card-title">{comment.user.username || comment.user.email}</h5>
                                 <div>
-                                    <button className="btn btn-outline-success me-1" onClick={editComment}> {editing ? <i class="fa-solid fa-floppy-disk"></i> : <i class="fa-solid fa-pencil"></i>}</button>
-                                    <button className="btn btn-outline-danger" onClick={deleteComment}><i class="fa-solid fa-trash"></i></button>
+                                    <button className="btn btn-outline-success me-1" onClick={editComment}> {editing ? <i className="fa-solid fa-floppy-disk"></i> : <i className="fa-solid fa-pencil"></i>}</button>
+                                    <button className="btn btn-outline-danger" onClick={deleteComment}><i className="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                             {!editing && <p className="card-text">{comment.content}</p>}

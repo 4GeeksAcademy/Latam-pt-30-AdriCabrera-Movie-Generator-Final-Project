@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
@@ -6,6 +6,10 @@ export const RecommendationCard = ({ movie }) => {
 	const { actions, store } = useContext(Context)
 	const [alertMessage, setAlertMessage] = useState(null)
 	const navigate = useNavigate()
+
+	// useEffect(() => {
+	// 	actions.getMovieList()
+	// }, [])
 
 	const isMovieInList = (movieId) => {
 		return store.movielist?.some(item => item.movie.id === movieId);
