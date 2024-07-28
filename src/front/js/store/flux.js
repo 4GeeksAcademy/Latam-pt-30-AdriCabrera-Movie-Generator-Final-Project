@@ -362,20 +362,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"Authorization": "Bearer " + sessionStorage.getItem('token')
 						},
 						body: JSON.stringify({ seen })
-					});
+					})
 
 					if (response.status !== 200) {
-						console.log("Error updating movie status", response.status);
-						return false;
+						console.log("Error updating movie status", response.status)
+						return false
 					}
 
 					const data = await response.json();
-					console.log("Movie status updated", data);
-					return true;
+					console.log("Movie status updated", data)
+					return true
 
 				} catch (error) {
-					console.log(error);
-					return false;
+					console.log(error)
+					return false
 				}
 			},
 		}

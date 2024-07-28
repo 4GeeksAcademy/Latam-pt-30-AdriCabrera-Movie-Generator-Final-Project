@@ -73,7 +73,6 @@ class Movie(db.Model):
 # My list info
 class MyList(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    seen = db.Column(db.Boolean, default=False)
     
     # Relation with Movies
   
@@ -91,8 +90,7 @@ class MyList(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-            "movie": self.movie.serialize(),
-            "seen": self.movie.serialize()
+            "movie": self.movie.serialize()
         }
 
 # Genres info
