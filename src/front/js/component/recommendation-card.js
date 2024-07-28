@@ -8,7 +8,7 @@ export const RecommendationCard = ({ movie }) => {
 	const navigate = useNavigate()
 
 	const isMovieInList = (movieId) => {
-		return store.movielist.some(item => item.movie.id === movieId);
+		return store.movielist?.some(item => item.movie.id === movieId);
 	}
 
 	const handleAddOrRemoveMovie = async () => {
