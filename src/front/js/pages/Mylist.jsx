@@ -5,9 +5,16 @@ import { Context } from "../store/appContext";
 export const Mylist = () => {
     const { store, actions } = useContext(Context);
 
-    useEffect(() => {
-        actions.getMovieList()
-    }, [])
+    // useEffect(() => {
+    //     actions.getMovieList()
+    // }, [])
+
+    const handleRemoveMovie = async (movieId) => {
+        const success = await actions.deleteMovieFromList(movieId);
+        if (!success) {
+            console.error('Failed to remove movie');
+        }
+    }
 
     return (
         <div className="d-flex flex-wrap justify-content-center vw-100 p-3 m-3 gap-2 parallax-mylist">
@@ -19,6 +26,12 @@ export const Mylist = () => {
                                 <img className="card-img-top" src={movielist?.movie.img_url} alt={movielist?.movie.title} />
                                 <div className="card-body">
                                     <h5 className="card-title">{movielist?.movie.title}</h5>
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={() => handleRemoveMovie(movielist.movie.id)}
+                                    >
+                                        Quitar de la lista
+                                    </button>
                                 </div>
                             </div>
                         ))}

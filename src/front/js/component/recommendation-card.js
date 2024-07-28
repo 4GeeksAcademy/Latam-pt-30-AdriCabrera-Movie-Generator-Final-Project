@@ -44,19 +44,30 @@ export const RecommendationCard = ({ movie }) => {
 					<div className="d-flex justify-content-between">
 						{
 							store.user &&
-							<button type="button"
-								className={`btn ${isMovieInList(movie.id) ? "btn-danger" : "btn-outline-success"}`}
-								onClick={handleAddOrRemoveMovie}
-							>
-								<i className={`icon fa-solid ${isMovieInList(movie.id) ? "fa-circle-minus" : "fa-circle-plus"}`}></i>
-							</button>
+							<div className="tooltip-container">
+								<button
+									type="button"
+									className={`btn ${isMovieInList(movie.id) ? "btn-danger" : "btn-outline-success"}`}
+									onClick={handleAddOrRemoveMovie}
+								>
+									<i className={`icon fa-solid ${isMovieInList(movie.id) ? "fa-circle-minus" : "fa-circle-plus"}`}></i>
+								</button>
+								<span className="tooltip-text">
+									{isMovieInList(movie.id) ? "Eliminar de mi lista" : "Agregar a mi lista"}
+								</span>
+							</div>
 						}
 
-						<button type="button" className="btn btn-outline-success"
-							onClick={() => {
-								navigate(`/SpecificInformation/${movie?.id}`)
-							}}><i className="icon fa-solid fa-circle-chevron-down" >
-							</i></button>
+						<div className="tooltip-container">
+							<button
+								type="button"
+								className="btn btn-outline-success"
+								onClick={() => navigate(`/SpecificInformation/${movie?.id}`)}
+							>
+								<i className="icon fa-solid fa-circle-chevron-down"></i>
+							</button>
+							<span className="tooltip-text">Detalles de la película</span>
+						</div>
 					</div>
 					<p className="mt-2 fs-6 text-success">{movie?.rating}</p>
 				</div>

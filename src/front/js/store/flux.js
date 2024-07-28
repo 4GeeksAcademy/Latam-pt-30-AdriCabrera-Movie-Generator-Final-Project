@@ -342,13 +342,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 					const data = await response.json()
 					console.log("Movie removed from list", data)
+					const store = getStore()
+					const updateList = store.movielist.filter(movie => movie.movie.id !== movieId);
+					setStore({ movielist: updateList })
 					return true
 
 				} catch (error) {
 					console.log(error)
 					return false
 				}
-			}
+			},
+
+			movieSeen: async (movieId, seen) => {
+				try {
+					const response = await fetch(`${process.env.BACKEND_URL}/api/user/movielist/${movieId}/seen`, {
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							"Authorization": "Bearer " + sessionStorage.getItem('token')
+						},
+						body: JSON.stringify({ seen })
+					});
+
+					if (response.status !== 200) {
+						console.log("Error updating movie status", response.status);
+						return false;
+					}
+
+					const data = await response.json();
+					console.log("Movie status updated", data);
+					return true;
+
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			},
 		}
 	};
 };
