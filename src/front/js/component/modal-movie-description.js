@@ -95,7 +95,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                 </div>
                                 <div className="col-12">
                                     <div className="alert alert-warning text-center" role="alert">
-                                        Si deseas una búsqueda más personalizada, <span style={{ cursor: "pointer" }} className="alert-link" data-bs-dismiss="modal" onClick={() => {
+                                        Si deseas obtener mas información, <span style={{ cursor: "pointer" }} className="alert-link" data-bs-dismiss="modal" onClick={() => {
                                             navigate(`/SpecificInformation/${movie?.id}`)
                                         }}>click aquí. </span>
                                     </div>
