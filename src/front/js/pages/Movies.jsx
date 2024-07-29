@@ -75,7 +75,7 @@ export const Movies = () => {
                                         >
                                             <i className="icon fa-solid fa-circle-chevron-down"></i>
                                         </button>
-                                        <span className="tooltip-text">Detalles de la película</span>
+                                        <span className="tooltip-text">Ver detalles de la película</span>
                                     </div>
                                 </div>
                             </div>

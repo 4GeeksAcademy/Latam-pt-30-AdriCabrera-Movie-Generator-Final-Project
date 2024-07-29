@@ -3,31 +3,31 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 
 export const RecommendationCard = ({ movie }) => {
-	const { actions, store } = useContext(Context);
-	const [alertMessage, setAlertMessage] = useState(null);
-	const navigate = useNavigate();
+	const { actions, store } = useContext(Context)
+	const [alertMessage, setAlertMessage] = useState(null)
+	const navigate = useNavigate()
 
 	const isMovieInList = (movieId) => {
-		return store.movielist.some(item => item.movie.id === movieId);
+		return store.movielist.some(item => item.movie.id === movieId)
 	};
 
 	const handleAddOrRemoveMovie = async () => {
 		if (store.user) {
-			let success;
+			let success
 			if (isMovieInList(movie.id)) {
-				success = await actions.deleteMovieFromList(movie.id);
+				success = await actions.deleteMovieFromList(movie.id)
 				setAlertMessage(success ? "Se eliminó la película de tu lista" : "Ups! Hubo un error eliminando película");
 			} else {
-				success = await actions.createMovieList(movie.title);
+				success = await actions.createMovieList(movie.title)
 				setAlertMessage(success ? "Se agregó la película a tu lista!" : "Ups! Hubo un error agregando película");
 			}
 			if (success) {
-				await actions.getMovieList();
+				await actions.getMovieList()
 			}
 
-			setTimeout(() => setAlertMessage(null), 2000);
+			setTimeout(() => setAlertMessage(null), 2000)
 		} else {
-			console.log("User not logged in");
+			console.log("User not logged in")
 		}
 	};
 
@@ -63,7 +63,7 @@ export const RecommendationCard = ({ movie }) => {
 								>
 									<i className="icon fa-solid fa-circle-chevron-down"></i>
 								</button>
-								<span className="tooltip-text">Detalles de la película</span>
+								<span className="tooltip-text">Ver detalles de la película</span>
 							</div>
 						</div>
 					</div>

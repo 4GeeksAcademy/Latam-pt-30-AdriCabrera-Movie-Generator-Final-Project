@@ -10,6 +10,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
     const { store, actions } = useContext(Context);
     const [selectedCategory, setSelectedCategory] = useState(0)
     const [selectedCategoryName, setSelectedCategoryName] = useState("Categoria");
+    const [alertMessage, setAlertMessage] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -29,6 +30,29 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
         actions.getRandomMovie(genreId);
     };
 
+    const handleMovieList = async () => {
+        if (store.user && movie) {
+            const movielist = Array.isArray(store.movielist) ? store.movielist : []
+            const isInList = movielist.some(item => item.movie?.id === movie?.id)
+
+            let success
+            if (isInList) {
+                success = await actions.deleteMovieFromList(movie.id)
+                setAlertMessage(success ? "Película eliminada de tu lista" : "Error al eliminar la película")
+            } else {
+                success = await actions.createMovieList(movie.title)
+                setAlertMessage(success ? "Película agregada a tu lista" : "Error al agregar la película")
+            }
+
+            if (success) {
+                await actions.getMovieList();
+            }
+
+            setTimeout(() => setAlertMessage(null), 1000)
+        } else {
+            setAlertMessage("Debes iniciar sesión o registrarte para añadir o eliminar películas de tu lista.")
+        }
+    }
 
     return (
         <>
@@ -42,8 +66,8 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                         <div className="modal-body">
                             <nav className="nav nav-pills nav-fill">
                                 <div className="row">
-                                    <div className="col-12">
-                                        <div className="dropdown">
+                                    <div className="col-12 d-flex align-items-center">
+                                        <div className="dropdown me-2">
                                             <button className="btn btn-outline-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                                 {selectedCategoryName}
                                             </button>
@@ -69,6 +93,21 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                                 <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(18, "Music")}>Music</a></li>
                                             </ul>
                                         </div>
+                                        <button
+                                            type="button"
+                                            className={`btn ${Array.isArray(store.movielist) && store.movielist.some(item => item.movie?.id === movie?.id) ? "btn-danger" : "btn-outline-success"}`}
+                                            onClick={handleMovieList}
+                                        >
+                                            {Array.isArray(store.movielist) && store.movielist.some(item => item.movie?.id === movie?.id) ? "Eliminar de Mi Lista" : "Agregar a Mi Lista"}
+                                        </button>
+                                    </div>
+                                    <div className="col-12 mb-3">
+                                        {alertMessage && (
+                                            <div className="alert alert-info alert-dismissible fade show" role="alert">
+                                                {alertMessage}
+                                                <button type="button" className="btn-close" onClick={() => setAlertMessage(null)} aria-label="Close"></button>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="col mt-2">
                                         <img src={movie?.img_url} className="img-fluid" alt="pelicula" />
@@ -101,10 +140,9 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                     </div>
                                 </div>
                             </nav>
-                            {type == "random" && <div className="d-grid">
+                            {type == "random" && (<div className="d-grid">
                                 <button type="button" className="btn btn-outline-success fs-4" onClick={clickGenerateRandomMovie}>Generar otra película aleatoria 🎲</button>
-                            </div>}
-
+                            </div>)}
                         </div>
                     </div>
                 </div>

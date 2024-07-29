@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import "../../styles/mylist.css";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 
 export const Mylist = () => {
     const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
     useEffect(() => {
         actions.getMovieList();
@@ -27,12 +29,24 @@ export const Mylist = () => {
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{movielist?.movie.title}</h5>
                                     <div className="mt-auto">
-                                        <button
-                                            className="btn btn-outline-danger"
-                                            onClick={() => handleRemoveMovie(movielist.movie.id)}
-                                        >
-                                            Quitar de la lista
-                                        </button>
+                                        <div className="d-flex justify-content-between gap-2">
+                                            <button
+                                                className="btn btn-outline-danger"
+                                                onClick={() => handleRemoveMovie(movielist.movie.id)}
+                                            >
+                                                Eliminar
+                                            </button>
+                                            <div className="tooltip-container">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-outline-success"
+                                                    onClick={() => navigate(`/SpecificInformation/${movie?.id}`)}
+                                                >
+                                                    <i className="icon fa-solid fa-circle-chevron-down"></i>
+                                                </button>
+                                                <span className="tooltip-text">Ver detalles de la película</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
