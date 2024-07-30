@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useInsertionEffect, useState } from "react";
 import { Comment } from "./comment";
 import { Context } from "../store/appContext";
+import Swal from 'sweetalert2'
 
 export const CommentList = ({ movieId }) => {
     const { store, actions } = useContext(Context);
@@ -31,9 +32,27 @@ export const CommentList = ({ movieId }) => {
 
 
 
-    const createComment = async () => {
+    const createComment = async (event) => {
+        event.preventDefault();
         if (!store.user) {
-            alert("Es necesario estar logeado para poder comentar");
+            await Swal.fire({
+                title: "No Logeado",
+                text: "Es necesario estar logeado para poder comentar",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+            });
+            return;
+        }
+
+        if (content.trim() == '' || !content) {
+            await Swal.fire({
+                title: "Comentarion Invalido",
+                text: "No puedes agregar comentarios vacios",
+                icon: "warning",
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+            });
             return;
         }
         await actions.createMovieComment(movieId, content);
@@ -54,11 +73,11 @@ export const CommentList = ({ movieId }) => {
         <>
             <div className="container">
                 <div className="row justify-content-center">
-                    <div className="col-12 col-md-5">
-                        <div className="input-group mb-3">
+                    <div className="col-12 col-md-6">
+                        <form onSubmit={createComment} className="input-group mb-3">
                             <input type="text" className="form-control" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Agrega un comentario" aria-label="Agrega un comentario" aria-describedby="button-addon2" />
-                            <button className="btn btn-outline-success" onClick={createComment} type="button" id="button-addon2">Comentar</button>
-                        </div>
+                            <button className="btn btn-outline-success" type="submit" id="button-addon2">Comentar</button>
+                        </form>
                         {
                             store.movieComments
                                 .map(c => <Comment key={c.id} comment={c} />)
@@ -70,8 +89,8 @@ export const CommentList = ({ movieId }) => {
                                 </li>
                                 {
                                     pages.map(p =>
-                                        <li key={p} className={`page-item ${pagination.page == p ? 'active' : ''}`}>
-                                            <button className="page-link" onClick={() => { setPagination({ ...pagination, page: p }) }} >{p}</button>
+                                        <li key={p} className={`page-item  ${pagination.page == p ? 'active bg-success' : 'bg-transparent'}`}>
+                                            <button className={`btn btn-outline-success ${pagination.page == p && "text-white"}`} onClick={() => { setPagination({ ...pagination, page: p }) }} >{p}</button>
                                         </li>
                                     )
                                 }

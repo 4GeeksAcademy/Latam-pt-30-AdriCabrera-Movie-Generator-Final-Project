@@ -67,3 +67,8 @@ body{
     visibility: visible;
     opacity: 1;
 }
+
+.page-item.active .page-link {
+    color: #fff !important;
+    background: green !important;
+  }
