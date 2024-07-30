@@ -31,6 +31,7 @@ const injectContext = PassedComponent => {
 			state.actions.getMessage(); // <---- calling this function from the flux.js actions
 			state.actions.getMovies();
 			state.actions.setToken();
+			state.actions.getMovieList();
 
 		}, []);
 

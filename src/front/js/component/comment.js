@@ -3,6 +3,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import moment from 'moment'
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 
 export const Comment = ({ comment }) => {
@@ -27,10 +28,26 @@ export const Comment = ({ comment }) => {
     };
 
     const deleteComment = async () => {
-        const confirmed = confirm("Esta seguro de su accion?");
-        if (confirmed) {
-            await actions.deleteMovieComment(comment.id);
-        }
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                await actions.deleteMovieComment(comment.id);
+                await actions.getMovieComments(comment.movie_id);
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success"
+                });
+
+            }
+        });
     };
 
     return (
@@ -43,14 +60,14 @@ export const Comment = ({ comment }) => {
                     <div className="col-md-9">
                         <div className="card-body">
                             <div className="d-flex justify-content-between align-items-center">
-                                <h5 className="card-title">{comment.user.username || comment.user.email}</h5>
-                                <div>
+                                <h6 className="card-title text-black">{comment.user.username || comment.user.email}</h6>
+                                <div className="d-flex ">
                                     <button className="btn btn-outline-success me-1" onClick={editComment}> {editing ? <i className="fa-solid fa-floppy-disk"></i> : <i className="fa-solid fa-pencil"></i>}</button>
                                     <button className="btn btn-outline-danger" onClick={deleteComment}><i className="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                             {!editing && <p className="card-text">{comment.content}</p>}
-                            {editing && <input type='text' onChange={(e) => setCommentValue(e.target.value)} value={commentValue} />}
+                            {editing && <input className="input-group-text" type='text' onChange={(e) => setCommentValue(e.target.value)} value={commentValue} />}
                             <p className="card-text"><small className="text-body-secondary">{moment.utc(comment.create_at).local().fromNow()}</small></p>
                             {store.user?.id == comment.user_id && <>
                             </>}

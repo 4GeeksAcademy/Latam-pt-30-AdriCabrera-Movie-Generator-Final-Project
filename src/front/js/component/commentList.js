@@ -53,9 +53,8 @@ export const CommentList = ({ movieId }) => {
     return (
         <>
             <div className="container">
-                <h2 className="text-center">current Page: {pagination.page}</h2>
                 <div className="row justify-content-center">
-                    <div className="col-5">
+                    <div className="col-12 col-md-5">
                         <div className="input-group mb-3">
                             <input type="text" className="form-control" value={content} onChange={(e) => setContent(e.target.value)} placeholder="Agrega un comentario" aria-label="Agrega un comentario" aria-describedby="button-addon2" />
                             <button className="btn btn-outline-success" onClick={createComment} type="button" id="button-addon2">Comentar</button>
@@ -67,7 +66,7 @@ export const CommentList = ({ movieId }) => {
                         <nav aria-label="Page navigation example">
                             <ul className="pagination justify-content-end">
                                 <li className={`page-item ${pagination.page == 1 ? 'disabled' : ''}`}>
-                                    <button className="page-link" onClick={previousPage} disabled={pagination.page == 1} >Anterior</button>
+                                    <button className="btn btn-outline-success" onClick={previousPage} disabled={pagination.page == 1} >Anterior</button>
                                 </li>
                                 {
                                     pages.map(p =>
@@ -77,7 +76,7 @@ export const CommentList = ({ movieId }) => {
                                     )
                                 }
                                 <li className={`page-item ${pagination.page == pages.length ? 'disabled' : ''}`}>
-                                    <button className="page-link" onClick={nextPage} disabled={pagination.page == pages.length} >Siguiente</button>
+                                    <button className="btn btn-outline-success" onClick={nextPage} disabled={pagination.page == pages.length} >Siguiente</button>
                                 </li>
                             </ul>
                         </nav>
