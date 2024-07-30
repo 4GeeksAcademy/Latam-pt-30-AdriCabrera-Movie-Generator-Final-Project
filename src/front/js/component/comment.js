@@ -29,20 +29,20 @@ export const Comment = ({ comment }) => {
 
     const deleteComment = async () => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: "Está seguro?",
+            text: "No podrás recuperar tu comentario!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Si, estoy seguro!"
         }).then(async (result) => {
             if (result.isConfirmed) {
                 await actions.deleteMovieComment(comment.id);
                 await actions.getMovieComments(comment.movie_id);
                 Swal.fire({
-                    title: "Deleted!",
-                    text: "Your file has been deleted.",
+                    title: "Eliminado!",
+                    text: "Se ha eliminado tu comentario.",
                     icon: "success"
                 });
 

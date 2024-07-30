@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			movies: [],
 			// For Movie pages
 			currentPage: 1,
-			pageSize: 16,
+			pageSize: 15,
 			// 
 			specificMovie: null,
 			popularMovies: [],

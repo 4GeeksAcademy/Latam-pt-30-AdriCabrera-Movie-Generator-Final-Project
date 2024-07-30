@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { ModalMovieDescription } from "../component/modal-movie-description";
 import { RecommendationCards } from "../component/recommendation-cards";
+import logo from "../../img/logo.png";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -15,12 +16,14 @@ export const Home = () => {
 				<div className="container background-overlay d-flex align-items-center">
 					<div className="row">
 						<div className="col text-center">
-							<h1 className="text-white" >¿Tienes 20 apps de stream pero no sabes que ver?
-								Con MovieMate encuentra la película perfecta según tus preferencias personales.
+							<h1 className="text-white font-weight-bold" >Explora sin esfuerzo, con
+								<img src={logo} alt="MovieMate" style={{ height: "80px", }} />
+								encuentra tu película ideal.
+								Deja de buscar y empieza a disfrutar!
 							</h1>
 							<div className="mt-5">
 								<button type="button" className="btn btn-outline-success data" onClick={() => actions.getRandomMovie()} data-bs-toggle="modal" data-bs-target="#exampleModal" >
-									<h4>Generar pelicula aleatoria</h4>
+									<h4 className="font-weight-bold">Generar pelicula aleatoria</h4>
 								</button>
 
 							</div>
