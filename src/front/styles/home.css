@@ -26,8 +26,10 @@ body{
     position: relative;
 }
 
-/* .card:hover{
-  /*- transform: scale(1.4);*/
+ /* .card img:hover{
+   transform: scale(1.1);
+   transition: 1s;
+} */
 
 .icon{
     color: white;
@@ -67,8 +69,3 @@ body{
     visibility: visible;
     opacity: 1;
 }
-
-.page-item.active .page-link {
-    color: #fff !important;
-    background: green !important;
-  }

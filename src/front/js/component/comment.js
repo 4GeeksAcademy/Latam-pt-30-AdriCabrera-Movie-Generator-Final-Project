@@ -1,6 +1,7 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import moment from 'moment'
+import "../../styles/mylist.css";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import Swal from 'sweetalert2'
@@ -11,6 +12,11 @@ export const Comment = ({ comment }) => {
     const [editing, setEditing] = useState(false);
     const [commentValue, setCommentValue] = useState('');
     const { id } = useParams();
+
+    useEffect(() => {
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+        [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    }, [])
 
     const editComment = async () => {
         if (editing) {
@@ -67,7 +73,7 @@ export const Comment = ({ comment }) => {
                             <div className="d-flex flex-column">
                                 <h6 className="card-title text-black">{comment.user.username || comment.user.email}</h6>
                             </div>
-                            {!editing && <p className="card-text">{comment.content}</p>}
+                            {!editing && <p className="card-text ">{comment.content}</p>}
                             {editing && <input className="form-control" type='text' onChange={(e) => setCommentValue(e.target.value)} value={commentValue} />}
                             <p className="card-text"><small className="text-body-secondary">{moment.utc(comment.create_at).local().fromNow()}</small></p>
                             {store.user?.id == comment.user_id && <>
@@ -75,9 +81,15 @@ export const Comment = ({ comment }) => {
                         </div>
                     </div>
                     <div className="col-12 col-lg-3">
-                        <div className="d-flex">
-                            <button className="btn btn-outline-success me-1" onClick={editComment}> {editing ? <i className="fa-solid fa-floppy-disk"></i> : <i className="fa-solid fa-pencil"></i>}</button>
-                            <button className="btn btn-outline-danger" onClick={deleteComment}><i className="fa-solid fa-trash"></i></button>
+                        <div className="d-flex p-2">
+                            <button className={`btn btn-outline-success me-1 ${editing ? 'd-none' : ''}`} data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Editar" onClick={editComment}>
+                                <i className="fa-solid fa-pencil"></i>
+                            </button>
+                            <button className={`btn btn-outline-success me-1 ${!editing ? 'd-none' : ''}`} data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Guardar" onClick={editComment}>
+                                <i className="fa-solid fa-floppy-disk" ></i>
+                            </button>
+
+                            <button className="btn btn-outline-danger" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Eliminar" onClick={deleteComment}><i className="fa-solid fa-trash"></i></button>
 
                         </div>
                     </div>

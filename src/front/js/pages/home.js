@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { ModalMovieDescription } from "../component/modal-movie-description";
 import { RecommendationCards } from "../component/recommendation-cards";
-import logo from "../../img/logo.png";
+import Moviemate_blanco from "../../img/Moviemate_blanco.png";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -17,7 +17,7 @@ export const Home = () => {
 					<div className="row">
 						<div className="col text-center">
 							<h1 className="text-white font-weight-bold" >Explora sin esfuerzo, con
-								<img src={logo} alt="MovieMate" style={{ height: "80px", }} />
+								<img src={Moviemate_blanco} alt="MovieMate" style={{ height: "80px", }} />
 								encuentra tu película ideal.
 								Deja de buscar y empieza a disfrutar!
 							</h1>

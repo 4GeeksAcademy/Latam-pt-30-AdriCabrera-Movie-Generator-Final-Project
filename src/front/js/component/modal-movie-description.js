@@ -61,7 +61,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                     <div className="modal-content text-light bg-dark">
                         <div className="modal-header">
                             <h5 className="modal-title">Recomiendame una peli</h5>
-                            <button type="button" className="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <nav className="nav nav-pills nav-fill">

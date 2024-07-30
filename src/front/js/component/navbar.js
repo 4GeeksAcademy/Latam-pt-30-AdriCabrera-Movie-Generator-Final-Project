@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import logo from "../../img/logo.png";
+import Moviemate_blanco from "../../img/Moviemate_blanco.png";
 
 export const Navbar = () => {
 	const { actions, store } = useContext(Context)
@@ -10,7 +10,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-lg navbar-dark">
 			<div className="container">
 				<Link to={"/"} className="navbar-brand" href="#">
-					<img src={logo} alt="MovieMate" style={{ height: "50px" }} />
+					<img src={Moviemate_blanco} alt="MovieMate" style={{ height: "50px" }} />
 				</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span className="navbar-toggler-icon"></span>
