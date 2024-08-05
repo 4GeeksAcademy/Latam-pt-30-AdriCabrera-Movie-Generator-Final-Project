@@ -26,8 +26,10 @@ body{
     position: relative;
 }
 
-/* .card:hover{
-  /*- transform: scale(1.4);*/
+ /* .card img:hover{
+   transform: scale(1.1);
+   transition: 1s;
+} */
 
 .icon{
     color: white;

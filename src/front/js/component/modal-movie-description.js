@@ -61,7 +61,7 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                     <div className="modal-content text-light bg-dark">
                         <div className="modal-header">
                             <h5 className="modal-title">Recomiendame una peli</h5>
-                            <button type="button" className="btn-close text-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div className="modal-body">
                             <nav className="nav nav-pills nav-fill">
@@ -73,24 +73,24 @@ export const ModalMovieDescription = ({ modalId, type, movie: inputMovie }) => {
                                             </button>
                                             <ul className="dropdown-menu">
                                                 <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(0, "Todas las categorias")}>Todas las categorias</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(1, "Animation")}>Animation</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(2, "Family")}>Family</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(3, "Adventure")}>Adventure</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(1, "Action")}>Action</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(2, "Crime")}>Crime</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(3, "Thriller")}>Thriller</a></li>
                                                 <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(4, "Comedy")}>Comedy</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(5, "Action")}>Action</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(6, "Crime")}>Crime</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(7, "Thriller")}>Thriller</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(8, "Romance")}>Romance</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(9, "Science Fiction")}>Science Fiction</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(10, "Fantasy")}>Fantasy</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(11, "Drama")}>Drama</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(12, "Horror")}>Horror</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(13, "Mystery")}>Mystery</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(14, "War")}>War</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(15, "TV Movie")}>TV Movie</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(16, "Western")}>Western</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(17, "History")}>History</a></li>
-                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(18, "Music")}>Music</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(5, "Science Fiction")}>Science Fiction</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(6, "Animation")}>Animation</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(7, "Family")}>Family</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(8, "Adventure")}>Adventure</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(9, "Fantasy")}>Fantasy</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(10, "Drama")}>Drama</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(11, "Horror")}>Horror</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(12, "War")}>War</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(13, "Romance")}>Romance</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(14, "Mystery")}>Mystery</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(15, "History")}>History</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(16, "TV Movie")}>Tv Movie</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(17, "Music")}>Music</a></li>
+                                                <li><a className="dropdown-item" href="#" onClick={() => handleCategorySelect(18, "Western")}>Western</a></li>
                                             </ul>
                                         </div>
                                         <button

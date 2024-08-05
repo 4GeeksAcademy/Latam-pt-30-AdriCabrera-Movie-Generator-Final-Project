@@ -37,7 +37,7 @@ export const Movies = () => {
     const handlePageChange = (page) => {
         actions.getMovies(page, store.pageSize);
         window.scrollTo({
-            top: 1,
+            top: 0,
             behavior: 'smooth' // This will create a smooth scroll effect
         });
     };
@@ -46,7 +46,7 @@ export const Movies = () => {
         <>
             <div className="d-flex flex-wrap justify-content-center vw-100 p-3 m-3 gap-2" id="parallax">
                 {store.movies.map((movie, index) => (
-                    <div style={{ maxWidth: "21rem" }} key={index} className="card card__movie mb-3 d-flex flex-column">
+                    <div style={{ minWidth: "25rem", maxHeight: "66rem" }} key={index} className="card card__movie mb-3 d-flex flex-column">
                         <img className="card-img-top" src={movie?.img_url} alt={movie.title} />
                         <div className="card-body d-flex flex-column">
                             <h5 className="card-title text-light">{movie.title}</h5>

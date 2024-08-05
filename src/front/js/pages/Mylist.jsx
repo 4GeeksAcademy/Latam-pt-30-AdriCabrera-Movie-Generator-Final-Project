@@ -24,7 +24,7 @@ export const Mylist = () => {
                 store.movielist && store.movielist.length > 0 ? (
                     <div className="container row row-cols-1 row-cols-md-4 g-4">
                         {store.movielist.map((movielist) => (
-                            <div style={{ maxWidth: "21rem" }} key={movielist.id} className="card card__movie mb-3 text-light d-flex flex-column">
+                            <div style={{ minWidth: "25rem" }} key={movielist.id} className="card card__movie mb-3 text-light d-flex flex-column">
                                 <img className="card-img-top" src={movielist?.movie.img_url} alt={movielist?.movie.title} />
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{movielist?.movie.title}</h5>
@@ -40,7 +40,7 @@ export const Mylist = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-outline-success"
-                                                    onClick={() => navigate(`/SpecificInformation/${movielist.movie.id}`)}
+                                                    onClick={() => navigate(`/SpecificInformation/${movielist?.movie.id}`)}
                                                 >
                                                     <i className="icon fa-solid fa-circle-chevron-down"></i>
                                                 </button>
