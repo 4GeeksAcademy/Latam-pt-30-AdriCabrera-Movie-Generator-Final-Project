@@ -40,7 +40,7 @@ export const Mylist = () => {
                                                 <button
                                                     type="button"
                                                     className="btn btn-outline-success"
-                                                    onClick={() => navigate(`/SpecificInformation/${movie?.id}`)}
+                                                    onClick={() => navigate(`/SpecificInformation/${movielist.movie.id}`)}
                                                 >
                                                     <i className="icon fa-solid fa-circle-chevron-down"></i>
                                                 </button>
